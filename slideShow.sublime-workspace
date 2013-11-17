@@ -1,0 +1,1128 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ani",
+				"animateUpOpen"
+			],
+			[
+				"close",
+				"closeEvent"
+			],
+			[
+				"gal",
+				"galleryWin"
+			],
+			[
+				"co",
+				"connect"
+			],
+			[
+				"gall",
+				"galleryVisible"
+			],
+			[
+				"ima",
+				"images"
+			],
+			[
+				"op",
+				"openBtn"
+			],
+			[
+				"exit",
+				"exitBtn"
+			],
+			[
+				"pa",
+				"parent"
+			],
+			[
+				"e",
+				"exec_"
+			],
+			[
+				"file",
+				"filePaths"
+			],
+			[
+				"lis",
+				"listdir"
+			],
+			[
+				"ex",
+				"exif"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"sel",
+				"selFile"
+			],
+			[
+				"is",
+				"isExtensionSupported"
+			],
+			[
+				"f",
+				"filePat"
+			],
+			[
+				"te",
+				"tempLst"
+			],
+			[
+				"fil",
+				"filePaths"
+			],
+			[
+				"add",
+				"addWidget"
+			],
+			[
+				"lay",
+				"layout"
+			],
+			[
+				"Qt",
+				"QtCore"
+			],
+			[
+				"ge",
+				"generatePixmap"
+			],
+			[
+				"get",
+				"geometry"
+			],
+			[
+				"la",
+				"layout"
+			],
+			[
+				"header",
+				"headerData"
+			],
+			[
+				"in",
+				"ingestData"
+			],
+			[
+				"sl",
+				"slideShowBase"
+			],
+			[
+				"siz",
+				"sizePolicy"
+			],
+			[
+				"exif",
+				"overlayExifText"
+			],
+			[
+				"col",
+				"column"
+			],
+			[
+				"over",
+				"overlayExifText"
+			],
+			[
+				"set",
+				"setText"
+			],
+			[
+				"ove",
+				"overlayExifText"
+			],
+			[
+				"exi",
+				"exifData"
+			],
+			[
+				"pr",
+				"process_file"
+			],
+			[
+				"pau",
+				"playPause"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"thu",
+				"thumbWidth"
+			],
+			[
+				"show",
+				"showFullScreen"
+			],
+			[
+				"A",
+				"AnimateOpen"
+			],
+			[
+				"an",
+				"animGallery"
+			],
+			[
+				"sta",
+				"startPos"
+			],
+			[
+				"w",
+				"window"
+			],
+			[
+				"anima",
+				"animateDownOpen"
+			],
+			[
+				"anim",
+				"animateUpSlideShow"
+			],
+			[
+				"im",
+				"imgPathLst"
+			],
+			[
+				"ga",
+				"galleryWin"
+			],
+			[
+				"__",
+				"__imgLst"
+			],
+			[
+				"img",
+				"imgagesPathLst"
+			],
+			[
+				"_t",
+				"_thumbRes"
+			],
+			[
+				"th",
+				"thumbheight"
+			],
+			[
+				"PHIL",
+				"philes"
+			],
+			[
+				"phi",
+				"philes"
+			],
+			[
+				"c",
+				"convertToTwoDList"
+			],
+			[
+				"pi",
+				"pixmap_cache"
+			],
+			[
+				"pix",
+				"pixmap"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"list",
+				"listdata"
+			],
+			[
+				"ro",
+				"rows"
+			],
+			[
+				"s",
+				"screenwidth"
+			],
+			[
+				"scr",
+				"screenheight"
+			],
+			[
+				"scre",
+				"screenwidth"
+			],
+			[
+				"view",
+				"viewMenu"
+			],
+			[
+				"moc",
+				"mock_slideShow"
+			],
+			[
+				"Im",
+				"imgLst"
+			],
+			[
+				"Tes",
+				"TestBase"
+			],
+			[
+				"Test",
+				"TestCase"
+			],
+			[
+				"test",
+				"testModules"
+			],
+			[
+				"ass",
+				"assertEquals"
+			],
+			[
+				"as",
+				"assertTrue"
+			],
+			[
+				"if",
+				"ifFilePathExists"
+			],
+			[
+				"fi",
+				"fileList"
+			],
+			[
+				"fie",
+				"filePaths"
+			],
+			[
+				"prom",
+				"promptBrowse"
+			],
+			[
+				"bro",
+				"browseFolder"
+			],
+			[
+				"Q",
+				"QMessageBox"
+			],
+			[
+				"_ima",
+				"_imagesInList"
+			],
+			[
+				"_im",
+				"_imagesInList"
+			],
+			[
+				"_i",
+				"_imagesInList"
+			],
+			[
+				"l",
+				"listdir"
+			],
+			[
+				"ne",
+				"nextImage"
+			],
+			[
+				"ke",
+				"keyevent"
+			],
+			[
+				"S",
+				"SIGIOHandler"
+			],
+			[
+				"_",
+				"_filesBinPath"
+			],
+			[
+				"sys",
+				"fileSysWatcher"
+			],
+			[
+				"new",
+				"newUsrNodeFile"
+			],
+			[
+				"ret",
+				"retVal"
+			],
+			[
+				"xml",
+				"xmlFile"
+			],
+			[
+				"insert",
+				"insertChildElement"
+			],
+			[
+				"xmlF",
+				"xmlFileLocation"
+			],
+			[
+				"com",
+				"complete"
+			],
+			[
+				"setC",
+				"setCompleter"
+			],
+			[
+				"gri",
+				"gridLayout"
+			],
+			[
+				"_da",
+				"_dataIn2"
+			],
+			[
+				"def",
+				"defaultList"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"data",
+				"dataIn2"
+			],
+			[
+				"path",
+				"pathAdded"
+			],
+			[
+				"mod",
+				"modulePath"
+			],
+			[
+				"de",
+				"defaultList"
+			],
+			[
+				"x",
+				"xmlDataObj"
+			],
+			[
+				"F",
+				"FocusOut"
+			],
+			[
+				"eve",
+				"event"
+			],
+			[
+				"Fil",
+				"Filter"
+			],
+			[
+				"Elemen",
+				"ElementTree"
+			],
+			[
+				"modu",
+				"modules"
+			],
+			[
+				"E",
+				"Element"
+			],
+			[
+				"mo",
+				"modulePath"
+			],
+			[
+				"Ele",
+				"ElementTree"
+			],
+			[
+				"selec",
+				"selectedDir"
+			],
+			[
+				"El",
+				"ElementTree"
+			],
+			[
+				"R",
+				"ReadWriteCustomPathsToDisk"
+			],
+			[
+				"module",
+				"modulePath"
+			],
+			[
+				"to",
+				"tostring"
+			],
+			[
+				"exce",
+				"except"
+			],
+			[
+				"li",
+				"list_as_xml"
+			],
+			[
+				"me",
+				"methodList"
+			],
+			[
+				"he",
+				"helpOnSelMethodTxtEdit"
+			],
+			[
+				"sear",
+				"searchListView"
+			],
+			[
+				"meth",
+				"methods"
+			],
+			[
+				"look",
+				"lookInsideEdit"
+			],
+			[
+				"eac",
+				"eachItem"
+			],
+			[
+				"ite",
+				"items"
+			],
+			[
+				"loo",
+				"lookinside"
+			],
+			[
+				"Look",
+				"lookinside"
+			],
+			[
+				"met",
+				"method"
+			],
+			[
+				"Key",
+				"Key_Enter-1"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "python/controlBar.py",
+			"settings":
+			{
+				"buffer_size": 2988,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/gallery.py",
+			"settings":
+			{
+				"buffer_size": 8574,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/slideShow.py",
+			"settings":
+			{
+				"buffer_size": 11298,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/slideShowBase.py",
+			"settings":
+			{
+				"buffer_size": 1434,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"Git: S",
+				"Git: Status"
+			],
+			[
+				"Git",
+				"Git: Commit…"
+			],
+			[
+				"Git:S",
+				"Git: Status"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Ins",
+				"Package Control: Install Package"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"",
+				"File: Close All"
+			],
+			[
+				"tcl",
+				"Set Syntax: Tcl"
+			],
+			[
+				"pytho",
+				"Set Syntax: Python"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			]
+		],
+		"width": 629.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())",
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); open( os.path.join( ipp, pf), 'wb' ).write( urllib.urlopen( 'http://sublime.wbond.net/' +pf.replace( ' ','%20' )).read()); print( 'Please restart Sublime Text to finish installation')",
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); open( os.path.join( ipp, pf), 'wb' ).write( urllib2.urlopen( 'http://sublime.wbond.net/' +pf.replace( ' ','%20' )).read()); print( 'Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/sanjeevkumar/Development/python/slideShow/scripts/gallery",
+		"/Users/sanjeevkumar/Development/python/custom/togglePushButton.py",
+		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
+		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/Users/sanjeevkumar/Development/python/slideShow/.git/rebase-merge/git-rebase-todo",
+		"/Users/sanjeevkumar/Development/python/slideShow/.git/COMMIT_EDITMSG",
+		"/Users/sanjeevkumar/Development/python/custom/experimentLabels.py",
+		"/Users/sanjeevkumar/Downloads/Aligorith-pyqttooltipslib-f88bf47899e6/src/qtiplabel.py",
+		"/Users/sanjeevkumar/Development/custom/MessageBox.py",
+		"/Users/sanjeevkumar/Downloads/codestriker-1.9.10/bin/install.pl",
+		"/Users/sanjeevkumar/Development/python/slideShow/scripts/slideshow",
+		"/Users/sanjeevkumar/Development/python/slideShow/tests/test_slideShowBase.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/tests/test_utils.py",
+		"/Users/sanjeevkumar/Development/custom/testQImageReader.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/slideShowBase.py",
+		"/Users/sanjeevkumar/Development/python/custom/dynamic_add_controls.py",
+		"/Users/sanjeevkumar/Development/custom/accessDialog.py",
+		"/Users/sanjeevkumar/Development/custom/mainWndow.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/slideShow.py",
+		"/Users/sanjeevkumar/Development/python/custom/qtthreadingExample.py",
+		"/Users/sanjeevkumar/Development/python/custom/threadingExample.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/threading.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/gallery.py",
+		"/Users/sanjeevkumar/Development/custom/overlay1.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/utils.py",
+		"/Users/sanjeevkumar/Development/custom/exifData.py",
+		"/Users/sanjeevkumar/Development/python/exif-py/EXIF.py",
+		"/Users/sanjeevkumar/Development/custom/animateFullScreen.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/__init__.py",
+		"/Users/sanjeevkumar/Development/custom/listView.py",
+		"/Users/sanjeevkumar/Development/custom/tableWidgetHover.py",
+		"/Users/sanjeevkumar/Development/custom/tableWidgetExample.py",
+		"/Users/sanjeevkumar/Development/custom/conlst2d.py",
+		"/Users/sanjeevkumar/Development/custom/animateWindow.py",
+		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/TermFrame.py",
+		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/SerialTerminal.py",
+		"/Users/sanjeevkumar/Development/custom/slide_animation.py",
+		"/Users/sanjeevkumar/Development/python/custom/itertool_product.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/tests/test_slideshow.py",
+		"/Users/sanjeevkumar/Development/python/Qdock.py",
+		"/Users/sanjeevkumar/Development/python/make",
+		"/Users/sanjeevkumar/Development/python/slideShow/scripts/make",
+		"/Users/sanjeevkumar/Desktop/test_.py",
+		"/Users/sanjeevkumar/Development/python/myAnimation.py",
+		"/Users/sanjeevkumar/Development/python/slide.py",
+		"/Users/sanjeevkumar/Development/python/fadeEffect.py",
+		"/Users/sanjeevkumar/Downloads/pyqt_image_gallery/image_gallery.py",
+		"/Users/sanjeevkumar/Dropbox/Research_Study/myprojects/Batch/python/LookDesign.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/scripts/searchMethod",
+		"/Users/sanjeevkumar/Development/python/slideShow.py",
+		"/Users/sanjeevkumar/Downloads/watchNodesBin.py",
+		"/Users/sanjeevkumar/Development/python/shareNukeNodes/python/watchDesk.py",
+		"/Users/sanjeevkumar/Development/python/stackedWindow.py",
+		"/Users/sanjeevkumar/Downloads/recipe-217829-1.py",
+		"/Users/sanjeevkumar/Downloads/test.py",
+		"/Applications/Nuke7.0v8/Documentation/NDK/examples/Makefile",
+		"/Applications/Nuke7.0v8/Documentation/NDK/examples/Makefile.qt",
+		"/Users/sanjeevkumar/Development/python/shareNukeNodes/python/sendNodes.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/autoComplete.py",
+		"/Users/sanjeevkumar/Documents/searchMethod/modules.xml",
+		"/Users/sanjeevkumar/test.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/test2.py",
+		"/Users/sanjeevkumar/Development/test2.py",
+		"/Users/sanjeevkumar/Development/python/Enjoy-Qt-Python-Binding/style_and_theme/cocoa_textured_window.py",
+		"/Users/sanjeevkumar/Development/python/Enjoy-Qt-Python-Binding/common_widgets/splitter/splitter.py",
+		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/sanjeevkumar/Desktop/test.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/searchMethodUI.py",
+		"/Users/sanjeevkumar/Development/python/autoComplete.py",
+		"/Users/sanjeevkumar/Documents/searchMethod/module.xml",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/searchMethod.py",
+		"/Users/sanjeevkumar/Dropbox/python scripts/minime/minime.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/exceptions.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/utils.py",
+		"/Users/sanjeevkumar/Development/python/searchMethod/python/__init__py",
+		"/Users/sanjeevkumar/Development/python/autoComplete2.py",
+		"/Users/sanjeevkumar/Development/python/listFilter/scripts/filterList",
+		"/Users/sanjeevkumar/Dropbox/Research_Study/myprojects/Batch/python/Render.py",
+		"/Users/sanjeevkumar/Development/python/scripts/QListView_QItemDelegate_example.py",
+		"/Users/sanjeevkumar/Development/python/scripts/QlistView_ QStandardItem_example.py",
+		"/Users/sanjeevkumar/Development/python/clipboard_test.py",
+		"/Users/sanjeevkumar/Development/python/listFilter/python/__init__.py",
+		"/Users/sanjeevkumar/Downloads/cherrytree-0.30.5/cherrytree",
+		"/Users/sanjeevkumar/Dropbox/Research_Study/myprojects/Batch/python/settingFilePath.py",
+		"/Users/sanjeevkumar/Development/python/ImageSlideShow/python/slideShowUI.py",
+		"/Users/sanjeevkumar/Development/python/ImageSlideShow/python/slideShow.py",
+		"/Users/sanjeevkumar/Dropbox/Research_Study/myprojects/Batch/Batch.sublime-project",
+		"/Users/sanjeevkumar/Development/python/filterList.py",
+		"/Users/sanjeevkumar/Development/python/listFilter/scripts/filterList.command",
+		"/Users/sanjeevkumar/Development/python/test_filterList.py",
+		"/Users/sanjeevkumar/Dropbox/Research_Study/myprojects/Batch/start.bat",
+		"/Users/sanjeevkumar/Development/python/learning_testing/test_atm.py",
+		"/Users/sanjeevkumar/Development/errdreadnodes.py",
+		"/Users/sanjeevkumar/Development/python/using_argparse/example1.py",
+		"/Users/sanjeevkumar/Development/python/find.py",
+		"/Users/sanjeevkumar/Development/python/QComboXample.py",
+		"/Users/sanjeevkumar/Dropbox/python scripts/minime.py",
+		"/Users/sanjeevkumar/clickme/lib/main.js",
+		"/Users/sanjeevkumar/Downloads/voldsoftware-vold-utils-jplib-1b2ad87/README.md",
+		"/Users/sanjeevkumar/.nuke/menu.py",
+		"/Users/sanjeevkumar/Development/custom/moveupdown.py",
+		"/Users/sanjeevkumar/Development/custom/moveupdowb.py",
+		"/Users/sanjeevkumar/Development/custom/updateValinUI.py",
+		"/Users/sanjeevkumar/Development/python/qtNamedBackDrop.py",
+		"/Users/sanjeevkumar/Dropbox/python scripts/FileBrowser_PySide.py",
+		"/Users/sanjeevkumar/Development/MiniMe_PySide/libs/MiniMe_UI.py",
+		"/Users/sanjeevkumar/Development/MiniMe_PySide/libs/toolBarUI.py",
+		"/Users/sanjeevkumar/Development/python/backDropName.py",
+		"/Users/sanjeevkumar/Dropbox/python scripts/PyQt_Template.py",
+		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/Python.sublime-settings",
+		"/Users/sanjeevkumar/Development/Mail_Alert/python/emailObject_keys.py",
+		"/Users/sanjeevkumar/Development/Mail_Alert/python/checkMail.py",
+		"/Users/sanjeevkumar/Development/Mail_Alert/python/tryIcon.py",
+		"/Users/sanjeevkumar/Development/Mail_Alert/python/trayIcono.py",
+		"/Users/sanjeevkumar/Downloads/xosview-1.8.0/bitmeter.cc",
+		"/Users/sanjeevkumar/Development/python/traversePath.py",
+		"/Users/sanjeevkumar/Development/python/fixnames.py",
+		"/Users/sanjeevkumar/Development/python/mp3fileNameFix.py",
+		"/Users/sanjeevkumar/Development/python/learning_testing/atm.py"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/sanjeevkumar/Development/python",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"QPoint",
+			"createActions",
+			"slideShow",
+			"closeEvent",
+			"animateUpOpen",
+			"_exitGallery",
+			"window",
+			"_brows",
+			"_slideShowWin",
+			"galleryVisible",
+			"galrBtn",
+			"galleryVisible",
+			"_openSlideShow",
+			"animateUpSlideShow",
+			"_openSlideShow",
+			"dir",
+			"print",
+			"_openGallery",
+			"galleryVisible",
+			"_openGallery",
+			"__changeSlideShow",
+			"}\n",
+			"playPause",
+			"setIcon",
+			"arg",
+			"pick",
+			"paintEvent",
+			"ToolTipText",
+			"getDirContent",
+			"self",
+			"showExifData",
+			"_lm",
+			"__stubs",
+			")\n",
+			"arg",
+			"MainWindow",
+			"lbled",
+			"pixmap_cache",
+			"thumbheight",
+			"thumbWidth",
+			"curntPath",
+			"colData",
+			"ifFilePathExists",
+			"slideShowBase",
+			"_buildUi",
+			"_bu",
+			"_build",
+			"_bui",
+			"_build",
+			"build",
+			"started",
+			"exifread",
+			"threading",
+			"thread",
+			"Thread",
+			"thread",
+			"RLock",
+			"thread",
+			"Thread",
+			"thread",
+			"showImageByPath",
+			"_browseDir",
+			"_browse",
+			"__renameFile",
+			"utils",
+			"convertToTwoDList",
+			"_buildUi",
+			")\n",
+			"process_file",
+			"_twoDLst",
+			"selectonChanged",
+			"selChanged",
+			"_lm",
+			"selectonImage",
+			"selectonChanged",
+			"_slideShowWin",
+			"MyListModel",
+			"__sw",
+			"col",
+			"Col",
+			"col",
+			"twoDLst",
+			"lm",
+			"__sh",
+			"__sw",
+			"self.sh",
+			"self.sw",
+			"Sh",
+			"sh",
+			"Sh",
+			"sh",
+			"GalleryUi",
+			"500",
+			"__animRate",
+			"1500",
+			"animGallery",
+			"galleryWin",
+			"animGallery",
+			"Window",
+			"window",
+			"sh",
+			"sw",
+			"window",
+			"self.",
+			"self",
+			"raise_",
+			"galleryWin",
+			"sw",
+			"sh",
+			"sw",
+			"sh",
+			"sw",
+			"galleryWin",
+			"window",
+			"galleryWin",
+			"generatePixmap",
+			"animation",
+			"Animation",
+			"animation",
+			"galleryWin",
+			"main",
+			"Animation",
+			"animation",
+			"_isBrowse",
+			"imgPathLst",
+			"__assignImageList",
+			"ingestData",
+			"_browseDir"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			".",
+			"\\t",
+			"files",
+			"\\t",
+			"~",
+			"\\t",
+			"\\n",
+			"\\t",
+			"",
+			"\\t",
+			"/t",
+			"\\t"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "python/controlBar.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2988,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1933,
+								1933
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 696.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "python/gallery.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8574,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4652,
+								4652
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 260.0,
+						"translation.y": 2707.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "python/slideShow.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6170,
+								6179
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3365.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "python/slideShowBase.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1434,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								392,
+								392
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 295.0
+	},
+	"project": "slideShow.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 146.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
