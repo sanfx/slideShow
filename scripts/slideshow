@@ -1,0 +1,17 @@
+#! /usr/bin/env python
+# -*-coding: utf8-*-
+# file: filterList
+
+
+import os
+import sys
+
+MODULES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "python")
+sys.path.insert(0, MODULES_PATH)
+
+
+import slideShow
+slideShow.main()
+
+
+		
