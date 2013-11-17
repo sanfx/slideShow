@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*-coding: utf8-*-
-# file: filterList
+# file: slideShow
 
 
 import os
