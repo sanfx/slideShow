@@ -13,13 +13,16 @@ class SlideShowPics(QtGui.QWidget):
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 		QtGui.QWidget.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
 		self._path = path
+		self.setStyleSheet("QWidget{background-color: #000000;}")
 		self.animFlag = True
+		self.pause = False
 		self.buildUi()
-		self.count = 0
 		self.showFullScreen()
+		self.count = 0
+		self.nextImage()
 		self.updateTimer = QtCore.QTimer()
 		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
-		self.updateTimer.start(2500)  
+		self.playPause() 
 
 	def allImages(self):
 		return  tuple(os.path.join(self._path,each) for each in os.listdir(self._path) 
@@ -50,8 +53,21 @@ class SlideShowPics(QtGui.QWidget):
 			self.close()
 		if keyevent.key() == QtCore.Qt.Key_Left:
 			self.animFlag = False
+			self.nextImage()
 		if keyevent.key() == QtCore.Qt.Key_Right:
 			self.animFlag = True
+			self.nextImage()
+		if keyevent.key() == 32:
+			self.pause = self.playPause()
+
+	def playPause(self):
+			if not self.pause:
+				self.pause = True
+				self.updateTimer.start(2500)
+				return self.pause
+			else:
+				self.pause = False
+				self.updateTimer.stop()
 
 	def _openFolder(self):
 		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(
