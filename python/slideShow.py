@@ -1,7 +1,37 @@
+"""
+This program is licensed under the BSD license.
+
+Copyright (c) 2013, Sanjeev Kumar
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, 
+      this list of conditions and the following disclaimer in the documentation 
+      and/or other materials provided with the distribution.
+    * Neither the name of the Dino Interactive nor the names of its contributors 
+      may be used to endorse or promote products derived from this software 
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR 
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
 from PyQt4 import QtGui,QtCore
 import sys
 import os
-import time
+
 
 class SlideShowPics(QtGui.QWidget):
 	"""docstring for SlideShowPics"""
@@ -46,8 +76,8 @@ class SlideShowPics(QtGui.QWidget):
 			self.close()
 
 	def keyPressEvent(self, keyevent):
-		"""	Capture key to execute and exit 
-			on Enter and Escape respectively.
+		"""	Capture key to exit, next image, previous image,
+			on Escape , Key Right and key left respectively.
 		"""
 		if keyevent.key() == QtCore.Qt.Key_Escape:
 			self.close()
@@ -89,9 +119,8 @@ def main():
 	if any(each.endswith('png') or each.endswith('jpg') for each in os.listdir(curntPath)):	
 		app = QtGui.QApplication(sys.argv)
 		window =  SlideShowPics(curntPath)
-		window.setWindowState(window.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
-		window.activateWindow()
 		window.show()
+		window.raise_()
 		app.exec_()
 	else:
 		print "No Image found in %s" % os.getcwd()
