@@ -40,11 +40,12 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, path):
+	def __init__(self, path, imgLst):
 		QtGui.QMainWindow.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
 		# super(SlideShowPics, self).__init__()
 		self._path = path
 		self._imageCache = []
+		self._imagesInList = imgLst
 		self._pause = False
 		self._count = 0
 		self.animFlag = True
@@ -69,8 +70,7 @@ class SlideShowPics(QtGui.QMainWindow):
 		self.setCentralWidget(self.label)
 
 	def getAllImages(self):
-		return  tuple(os.path.join(self._path,each) for each in os.listdir(self._path)
-			if os.path.isfile(os.path.join(self._path,each)) and isExtensionSupported(each))
+		return  tuple(os.path.join(self._path,each) for each in self._imagesInList)
 
 	def nextImage(self):
 		if not self._imageCache:
@@ -139,9 +139,14 @@ def isExtensionSupported(filename):
 		return True
 
 def main(curntPath):
-	if any(isExtensionSupported(each) for each in os.listdir(curntPath)):
+	imgLst =  os.listdir(curntPath)
+	_allowdImages = []
+	for image in imgLst:
+		if isExtensionSupported(image):
+			_allowdImages.append(image)
+	if any(imageSel for imageSel in _allowdImages if os.path.isfile(os.path.join(curntPath, imageSel))):
 		app = QtGui.QApplication(sys.argv)
-		window =  SlideShowPics(curntPath)
+		window =  SlideShowPics(curntPath, _allowdImages)
 		window.show()
 		window.raise_()
 		app.exec_()
