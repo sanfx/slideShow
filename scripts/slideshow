@@ -11,7 +11,7 @@ sys.path.insert(0, MODULES_PATH)
 
 
 import slideShow
-slideShow.main()
+slideShow.main(os.getcwd())
 
 
 		

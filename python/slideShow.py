@@ -30,66 +30,55 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import sys
 import os
+import utils
 
 
 from PyQt4 import QtGui,QtCore
 
 
-class SlideShowPics(QtGui.QWidget):
+class SlideShowPics(QtGui.QMainWindow):
 
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, path):
-		super(SlideShowPics, self).__init__()
-		self._path = path
-		self._imageCache = []
-		self.pause = False
-		self.animFlag = True
-		self.count = 0
+	def __init__(self, imgLst, num=0, flag=True, ui=True, parent=None):
+		super(SlideShowPics, self).__init__(parent)
+		self._imagesInList = imgLst
+		self._pause = False
+		self._count = num
+		self.animFlag = flag
 		self.updateTimer = QtCore.QTimer()
-		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
-		self.prepairWindow()
-		self.nextImage()
+		self.prepairWindow(ui)
 
-	def prepairWindow(self):
-		# Centre UI
-		screen = QtGui.QDesktopWidget().screenGeometry(self)
-		size = self.geometry()
-		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		QtGui.QWidget.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
-		self.setStyleSheet("QWidget{background-color: #000000;}")
-		self.buildUi()
-		self.showFullScreen()
+	def prepairWindow(self, ui):
+		if ui:
+			# Centre UI
+			screen = QtGui.QDesktopWidget().screenGeometry(self)
+			size = self.geometry()
+			self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+			self.setStyleSheet("QWidget{background-color: #000000;}")
+			self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+			self.buildUi()
+			self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
+			self.showFullScreen()
 		self.playPause()
 
 	def buildUi(self):
-		self.layout = QtGui.QHBoxLayout()
 		self.label = QtGui.QLabel()
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
-		self.layout.addWidget(self.label)
-		self.setLayout(self.layout)
-
-	def getAllImages(self):
-		return  tuple(os.path.join(self._path,each) for each in os.listdir(self._path)
-			if os.path.isfile(os.path.join(self._path,each)) and each.endswith('png') or each.endswith('jpg'))
+		self.setCentralWidget(self.label)
 
 	def nextImage(self):
-		if not self._imageCache:
-			self._imageCache = self.getAllImages()
-
-		if self._imageCache:
-			if self.count == len(self._imageCache):
-				self.count = 0
-
-			self.showImageByPath(
-					self._imageCache[self.count])
-
+		"""	switch to next image or previous image
+		"""
+		if self._imagesInList:
+			if self._count == len(self._imagesInList):
+				self._count = 0
+			self.showImageByPath(self._imagesInList[self._count])
 			if self.animFlag:
-				self.count += 1
+				self._count += 1
 			else:
-				self.count -= 1
-
+				self._count -= 1
 
 	def showImageByPath(self, path):
 		if path:
@@ -101,52 +90,57 @@ class SlideShowPics(QtGui.QWidget):
 					QtCore.Qt.SmoothTransformation))
 
 	def playPause(self):
-			if not self.pause:
-				self.pause = True
-				self.updateTimer.start(2500)
-				return self.pause
-			else:
-				self.pause = False
-				self.updateTimer.stop()
+		if not self._pause:
+			self._pause = True
+			self.updateTimer.start(2500)
+			return self._pause
+		else:
+			self._pause = False
+			self.updateTimer.stop()
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
 			on Escape , Key Right and key left respectively.
 		"""
-		if keyevent.key() == QtCore.Qt.Key_Escape:
+		event = keyevent.key()
+		if event == QtCore.Qt.Key_Escape:
 			self.close()
-		if keyevent.key() == QtCore.Qt.Key_Left:
+		if event == QtCore.Qt.Key_Left:
 			self.animFlag = False
 			self.nextImage()
-		if keyevent.key() == QtCore.Qt.Key_Right:
+		if event == QtCore.Qt.Key_Right:
 			self.animFlag = True
 			self.nextImage()
-		if keyevent.key() == 32:
-			self.pause = self.playPause()
+		if event == 32:
+			self._pause = self.playPause()
 
-	def _openFolder(self):
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(
-			self,
-			"Select Directory to SlideShow",
-			os.getcwd()))
-		if selectedDir:
-			return selectedDir
-
-
-def main(curntPath):
-	if any(each.endswith('png') or each.endswith('jpg') for each in os.listdir(curntPath)):
-		app = QtGui.QApplication(sys.argv)
-		window =  SlideShowPics(curntPath)
-		window.show()
-		window.raise_()
-		app.exec_()
+def main(paths):
+	if isinstance(paths, list):
+		imgLst = utils.imageFilePaths(paths)
+	elif isinstance(paths, str):
+		imgLst =  utils.imageFilePaths([paths])
 	else:
-		print "No Image found in %s" % curntPath
+		print " You can either enter a list of paths or single path"
+	app = QtGui.QApplication(sys.argv)
+	if imgLst:
+		window =  SlideShowPics(imgLst)
+		window.show()
+		window.nextImage()
+		window.raise_()
+		sys.exit(app.exec_())
+	else:
+		msgBox = QtGui.QMessageBox()
+		msgBox.setText("No Image found in any of the paths below\n\n%s" % paths)
+		msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
+		if msgBox.exec_() == msgBox.Open:
+			selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
+				"Select Directory to SlideShow",
+				os.getcwd()))
+			if selectedDir:
+				main(selectedDir)
 
 if __name__ == '__main__':
-	curntPath = os.getcwd()
+	curntPaths = os.getcwd()
 	if len(sys.argv) > 1:
-		if os.path.exists(sys.argv[1]):
-			curntPath = sys.argv[1]
-
-	main(curntPath)
+		curntPaths = sys.argv[1:]
+	main(curntPaths)
