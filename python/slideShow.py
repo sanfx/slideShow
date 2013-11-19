@@ -35,18 +35,19 @@ import os
 from PyQt4 import QtGui,QtCore
 
 
-class SlideShowPics(QtGui.QWidget):
+class SlideShowPics(QtGui.QMainWindow):
 
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
 	def __init__(self, path):
-		super(SlideShowPics, self).__init__()
+		QtGui.QMainWindow.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
+		# super(SlideShowPics, self).__init__()
 		self._path = path
 		self._imageCache = []
-		self.pause = False
+		self._pause = False
+		self._count = 0
 		self.animFlag = True
-		self.count = 0
 		self.updateTimer = QtCore.QTimer()
 		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
 		self.prepairWindow()
@@ -57,38 +58,35 @@ class SlideShowPics(QtGui.QWidget):
 		screen = QtGui.QDesktopWidget().screenGeometry(self)
 		size = self.geometry()
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		QtGui.QWidget.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
 		self.setStyleSheet("QWidget{background-color: #000000;}")
 		self.buildUi()
 		self.showFullScreen()
 		self.playPause()
 
 	def buildUi(self):
-		self.layout = QtGui.QHBoxLayout()
 		self.label = QtGui.QLabel()
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
-		self.layout.addWidget(self.label)
-		self.setLayout(self.layout)
+		self.setCentralWidget(self.label)
 
 	def getAllImages(self):
 		return  tuple(os.path.join(self._path,each) for each in os.listdir(self._path)
-			if os.path.isfile(os.path.join(self._path,each)) and each.endswith('png') or each.endswith('jpg'))
+			if os.path.isfile(os.path.join(self._path,each)) and isExtensionSupported(each))
 
 	def nextImage(self):
 		if not self._imageCache:
 			self._imageCache = self.getAllImages()
 
 		if self._imageCache:
-			if self.count == len(self._imageCache):
-				self.count = 0
+			if self._count == len(self._imageCache):
+				self._count = 0
 
 			self.showImageByPath(
-					self._imageCache[self.count])
+					self._imageCache[self._count])
 
 			if self.animFlag:
-				self.count += 1
+				self._count += 1
 			else:
-				self.count -= 1
+				self._count -= 1
 
 
 	def showImageByPath(self, path):
@@ -101,28 +99,29 @@ class SlideShowPics(QtGui.QWidget):
 					QtCore.Qt.SmoothTransformation))
 
 	def playPause(self):
-			if not self.pause:
-				self.pause = True
+			if not self._pause:
+				self._pause = True
 				self.updateTimer.start(2500)
-				return self.pause
+				return self._pause
 			else:
-				self.pause = False
+				self._pause = False
 				self.updateTimer.stop()
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
 			on Escape , Key Right and key left respectively.
 		"""
-		if keyevent.key() == QtCore.Qt.Key_Escape:
+		event = keyevent.key()
+		if event == QtCore.Qt.Key_Escape:
 			self.close()
-		if keyevent.key() == QtCore.Qt.Key_Left:
+		if event == QtCore.Qt.Key_Left:
 			self.animFlag = False
 			self.nextImage()
-		if keyevent.key() == QtCore.Qt.Key_Right:
+		if event == QtCore.Qt.Key_Right:
 			self.animFlag = True
 			self.nextImage()
-		if keyevent.key() == 32:
-			self.pause = self.playPause()
+		if event == 32:
+			self._pause = self.playPause()
 
 	def _openFolder(self):
 		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(
@@ -132,9 +131,15 @@ class SlideShowPics(QtGui.QWidget):
 		if selectedDir:
 			return selectedDir
 
+def isExtensionSupported(filename):
+	"""	Supported extensions viewable in SlideShow
+	"""
+	if filename.endswith('PNG') or filename.endswith('png') or\
+	 filename.endswith('JPG') or filename.endswith('jpg'):
+		return True
 
 def main(curntPath):
-	if any(each.endswith('png') or each.endswith('jpg') for each in os.listdir(curntPath)):
+	if any(isExtensionSupported(each) for each in os.listdir(curntPath)):
 		app = QtGui.QApplication(sys.argv)
 		window =  SlideShowPics(curntPath)
 		window.show()
