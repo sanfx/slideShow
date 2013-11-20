@@ -40,9 +40,9 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, path, imgLst, parent=None):
+	def __init__(self, imgLst, parent=None):
 		super(SlideShowPics, self).__init__(parent)
-		self._path = path
+		# self._path = path
 		self._imageCache = []
 		self._imagesInList = imgLst
 		self._pause = False
@@ -73,15 +73,15 @@ class SlideShowPics(QtGui.QMainWindow):
 		return  tuple(os.path.join(self._path,each) for each in self._imagesInList)
 
 	def nextImage(self):
-		if not self._imageCache:
-			self._imageCache = self.getAllImages()
+		# if not self._imageCache:
+		# 	self._imageCache = self.getAllImages()
 
-		if self._imageCache:
-			if self._count == len(self._imageCache):
+		if self._imagesInList:
+			if self._count == len(self._imagesInList):
 				self._count = 0
 
 			self.showImageByPath(
-					self._imageCache[self._count])
+					self._imagesInList[self._count])
 
 			if self.animFlag:
 				self._count += 1
@@ -138,25 +138,40 @@ def isExtensionSupported(filename):
 	 filename.endswith('JPG') or filename.endswith('jpg'):
 		return True
 
-def main(curntPath):
-	imgLst =  os.listdir(curntPath)
-	_allowdImages = []
-	for image in imgLst:
-		if isExtensionSupported(image):
-			_allowdImages.append(image)
-	if any(imageSel for imageSel in _allowdImages if os.path.isfile(os.path.join(curntPath, imageSel))):
+def imageFilePaths(paths):
+	imagesWithPath = []
+	for _path in paths:
+		try:
+			dirContent = os.listdir(_path)
+		except OSError:
+			raise OSError("Provided path '%s' doesn't exists." % _path)
+			
+		for each in dirContent:
+			selFile = os.path.join(_path, each)
+			if os.path.isfile(selFile) and isExtensionSupported(selFile):
+				imagesWithPath.append(selFile)
+	return list(set(imagesWithPath))
+
+def main(paths):
+	if isinstance(paths, list):
+		imgLst = imageFilePaths(paths)
+	elif isinstance(paths, str):
+		imgLst =  imageFilePaths([paths])
+	else:
+		print " You can either enter a list of paths or single path"
+
+	if imgLst:
 		app = QtGui.QApplication(sys.argv)
-		window =  SlideShowPics(curntPath, _allowdImages)
+		window =  SlideShowPics(imgLst)
 		window.show()
 		window.raise_()
 		app.exec_()
 	else:
-		print "No Image found in %s" % curntPath
+		print "\nNo Image found in any of the paths below\n\n%s\n" % "\n".join(paths)
 
 if __name__ == '__main__':
-	curntPath = os.getcwd()
-	if len(sys.argv) > 1:
-		if os.path.exists(sys.argv[1]):
-			curntPath = sys.argv[1]
+	curntPaths = os.getcwd()
+	if len(sys.argv) >= 1:
+		curntPaths = sys.argv[1:]
 
-	main(curntPath)
+	main(curntPaths)
