@@ -40,8 +40,8 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, path, imgLst):
-		super(SlideShowPics, self).__init__()
+	def __init__(self, path, imgLst, parent=None):
+		super(SlideShowPics, self).__init__(parent)
 		self._path = path
 		self._imageCache = []
 		self._imagesInList = imgLst
