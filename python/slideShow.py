@@ -41,8 +41,7 @@ class SlideShowPics(QtGui.QMainWindow):
 		working logic
 	"""
 	def __init__(self, path, imgLst):
-		QtGui.QMainWindow.__init__(self, None, QtCore.Qt.WindowStaysOnTopHint)
-		# super(SlideShowPics, self).__init__()
+		super(SlideShowPics, self).__init__()
 		self._path = path
 		self._imageCache = []
 		self._imagesInList = imgLst
@@ -60,6 +59,7 @@ class SlideShowPics(QtGui.QMainWindow):
 		size = self.geometry()
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 		self.setStyleSheet("QWidget{background-color: #000000;}")
+		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 		self.buildUi()
 		self.showFullScreen()
 		self.playPause()
