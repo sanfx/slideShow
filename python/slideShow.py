@@ -30,6 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import sys
 import os
+import utils
 
 
 from PyQt4 import QtGui,QtCore
@@ -69,13 +70,9 @@ class SlideShowPics(QtGui.QMainWindow):
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.setCentralWidget(self.label)
 
-	def getAllImages(self):
-		return  tuple(os.path.join(self._path,each) for each in self._imagesInList)
-
 	def nextImage(self):
-		# if not self._imageCache:
-		# 	self._imageCache = self.getAllImages()
-
+		"""	switch to next image or previous image
+		"""
 		if self._imagesInList:
 			if self._count == len(self._imagesInList):
 				self._count = 0
@@ -99,13 +96,13 @@ class SlideShowPics(QtGui.QMainWindow):
 					QtCore.Qt.SmoothTransformation))
 
 	def playPause(self):
-			if not self._pause:
-				self._pause = True
-				self.updateTimer.start(2500)
-				return self._pause
-			else:
-				self._pause = False
-				self.updateTimer.stop()
+		if not self._pause:
+			self._pause = True
+			self.updateTimer.start(2500)
+			return self._pause
+		else:
+			self._pause = False
+			self.updateTimer.stop()
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
@@ -123,55 +120,30 @@ class SlideShowPics(QtGui.QMainWindow):
 		if event == 32:
 			self._pause = self.playPause()
 
-	def _openFolder(self):
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(
-			self,
-			"Select Directory to SlideShow",
-			os.getcwd()))
-		if selectedDir:
-			return selectedDir
-
-def isExtensionSupported(filename):
-	"""	Supported extensions viewable in SlideShow
-	"""
-	if filename.endswith('PNG') or filename.endswith('png') or\
-	 filename.endswith('JPG') or filename.endswith('jpg'):
-		return True
-
-def imageFilePaths(paths):
-	imagesWithPath = []
-	for _path in paths:
-		try:
-			dirContent = os.listdir(_path)
-		except OSError:
-			raise OSError("Provided path '%s' doesn't exists." % _path)
-			
-		for each in dirContent:
-			selFile = os.path.join(_path, each)
-			if os.path.isfile(selFile) and isExtensionSupported(selFile):
-				imagesWithPath.append(selFile)
-	return list(set(imagesWithPath))
-
 def main(paths):
 	if isinstance(paths, list):
-		imgLst = imageFilePaths(paths)
+		imgLst = utils.imageFilePaths(paths)
 	elif isinstance(paths, str):
-		imgLst =  imageFilePaths([paths])
+		imgLst =  utils.imageFilePaths([paths])
 	else:
 		print " You can either enter a list of paths or single path"
-
+	app = QtGui.QApplication(sys.argv)
 	if imgLst:
-		app = QtGui.QApplication(sys.argv)
 		window =  SlideShowPics(imgLst)
 		window.show()
 		window.raise_()
 		app.exec_()
 	else:
-		print "\nNo Image found in any of the paths below\n\n%s\n" % "\n".join(paths)
+		msgBox = QtGui.QMessageBox()
+		msgBox.setText("No Image found in any of the paths below\n\n%s" % paths)
+		msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
+		if msgBox.exec_() == msgBox.Open:
+			main(str(QtGui.QFileDialog.getExistingDirectory(None, 
+				"Select Directory to SlideShow",
+				os.getcwd())))
 
 if __name__ == '__main__':
 	curntPaths = os.getcwd()
-	if len(sys.argv) >= 1:
+	if len(sys.argv) > 1:
 		curntPaths = sys.argv[1:]
-
 	main(curntPaths)
