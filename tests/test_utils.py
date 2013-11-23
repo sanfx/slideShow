@@ -1,20 +1,20 @@
 import unittest
+import mox
 import sys
 import os
-import mox
 sys.path.insert(0, os.path.abspath( os.path.join(os.path.dirname(__file__), 
                                                '../python/') ))
 
 import utils
 
 
-class Test_Utils(unittest.TestCase):
-	"""docstring for Test_Utils"""
+class TestUtils(unittest.TestCase):
+	"""	docstring for Test_Utils
+	"""
 
 	def setUp(self):
 		self._filePaths = ["/test/file/path"]
 		self.mox = mox.Mox()
-		pass
 
 	def tearDown(self):
 		self.mox.UnsetStubs()
@@ -48,6 +48,7 @@ class Test_Utils(unittest.TestCase):
 		self.assertTrue(utils.ifFilePathExists(__file__))
 
 
-unittest.main()
+if __name__ == '__main__':
+	unittest.main()
 
 

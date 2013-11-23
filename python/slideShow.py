@@ -43,8 +43,6 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""
 	def __init__(self, imgLst, parent=None):
 		super(SlideShowPics, self).__init__(parent)
-		# self._path = path
-		self._imageCache = []
 		self._imagesInList = imgLst
 		self._pause = False
 		self._count = 0
@@ -132,15 +130,17 @@ def main(paths):
 		window =  SlideShowPics(imgLst)
 		window.show()
 		window.raise_()
-		app.exec_()
+		sys.exit(app.exec_())
 	else:
 		msgBox = QtGui.QMessageBox()
 		msgBox.setText("No Image found in any of the paths below\n\n%s" % paths)
 		msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
 		if msgBox.exec_() == msgBox.Open:
-			main(str(QtGui.QFileDialog.getExistingDirectory(None, 
+			selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
 				"Select Directory to SlideShow",
-				os.getcwd())))
+				os.getcwd()))
+			if selectedDir:
+				main(selectedDir)
 
 if __name__ == '__main__':
 	curntPaths = os.getcwd()
