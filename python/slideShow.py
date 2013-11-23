@@ -41,12 +41,12 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, imgLst, ui=True, parent=None):
+	def __init__(self, imgLst, num=0, flag=True, ui=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
 		self._imagesInList = imgLst
 		self._pause = False
-		self.count = 0
-		self.animFlag = True
+		self._count = num
+		self.animFlag = flag
 		self.updateTimer = QtCore.QTimer()
 		self.prepairWindow(ui)
 
@@ -72,17 +72,13 @@ class SlideShowPics(QtGui.QMainWindow):
 		"""	switch to next image or previous image
 		"""
 		if self._imagesInList:
-			if self.count == len(self._imagesInList):
-				self.count = 0
-
-			self.showImageByPath(self._imagesInList[self.count])
-
+			if self._count == len(self._imagesInList):
+				self._count = 0
+			self.showImageByPath(self._imagesInList[self._count])
 			if self.animFlag:
-				self.count += 1
+				self._count += 1
 			else:
-				print "in SlideShow %s " % self.count
-				self.count -= 1
-
+				self._count -= 1
 
 	def showImageByPath(self, path):
 		if path:
