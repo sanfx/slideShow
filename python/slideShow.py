@@ -41,26 +41,26 @@ class SlideShowPics(QtGui.QMainWindow):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, imgLst, parent=None):
+	def __init__(self, imgLst, ui=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
 		self._imagesInList = imgLst
 		self._pause = False
-		self._count = 0
+		self.count = 0
 		self.animFlag = True
 		self.updateTimer = QtCore.QTimer()
-		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
-		self.prepairWindow()
-		self.nextImage()
+		self.prepairWindow(ui)
 
-	def prepairWindow(self):
-		# Centre UI
-		screen = QtGui.QDesktopWidget().screenGeometry(self)
-		size = self.geometry()
-		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		self.setStyleSheet("QWidget{background-color: #000000;}")
-		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-		self.buildUi()
-		self.showFullScreen()
+	def prepairWindow(self, ui):
+		if ui:
+			# Centre UI
+			screen = QtGui.QDesktopWidget().screenGeometry(self)
+			size = self.geometry()
+			self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+			self.setStyleSheet("QWidget{background-color: #000000;}")
+			self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+			self.buildUi()
+			self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
+			self.showFullScreen()
 		self.playPause()
 
 	def buildUi(self):
@@ -72,16 +72,16 @@ class SlideShowPics(QtGui.QMainWindow):
 		"""	switch to next image or previous image
 		"""
 		if self._imagesInList:
-			if self._count == len(self._imagesInList):
-				self._count = 0
+			if self.count == len(self._imagesInList):
+				self.count = 0
 
-			self.showImageByPath(
-					self._imagesInList[self._count])
+			self.showImageByPath(self._imagesInList[self.count])
 
 			if self.animFlag:
-				self._count += 1
+				self.count += 1
 			else:
-				self._count -= 1
+				print "in SlideShow %s " % self.count
+				self.count -= 1
 
 
 	def showImageByPath(self, path):
@@ -129,6 +129,7 @@ def main(paths):
 	if imgLst:
 		window =  SlideShowPics(imgLst)
 		window.show()
+		window.nextImage()
 		window.raise_()
 		sys.exit(app.exec_())
 	else:
