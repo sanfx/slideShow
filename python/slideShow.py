@@ -105,7 +105,6 @@ class SlideShowPics(QtGui.QMainWindow):
 		else:
 			self._count -= 1
 
-
 	def showImageByPath(self, path):
 		if path:
 			image = QtGui.QImage(path)
@@ -155,6 +154,7 @@ def beginShow(imgLst=None):
 	window.show()
 	window.raise_()
 	sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
 	curntPaths = os.getcwd()
