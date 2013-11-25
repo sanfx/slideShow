@@ -6,7 +6,7 @@ from PyQt4 import QtGui
 sys.path.insert(0, os.path.abspath( os.path.join(os.path.dirname(__file__), 
                                                '../python/') ))
 import slideShow
-
+import utils
 
 class TestSlideShow(unittest.TestCase):
 	"""	docstring for TestSlideShow
@@ -44,10 +44,6 @@ class TestSlideShow(unittest.TestCase):
 		self.assertEquals(1, self.show._count)
 		self.assertEquals(self.imgLst[2], self.show._imagesInList[2])
 
-		
 
 if __name__ == '__main__':
 	unittest.main()
-
-
-
