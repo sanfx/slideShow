@@ -4,9 +4,8 @@ import sys
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
 	"""
-	if filename.endswith('.PNG') or filename.endswith('.png') or\
-	 filename.endswith('.JPG') or filename.endswith('.jpg'):
-		return True
+	ALLOWABLE = ("png", "jpg")
+	return filename.lower()[-3:] in ALLOWABLE
 
 def imageFilePaths(paths):
 	imagesWithPath = []
