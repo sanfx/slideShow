@@ -1,10 +1,12 @@
 import os
 import sys
+from PyQt4 import QtGui
 
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
 	"""
-	ALLOWABLE = ("png", "jpg")
+	reader = QtGui.QImageReader()
+	ALLOWABLE = [str(each) for each in reader.supportedImageFormats()]
 	return filename.lower()[-3:] in ALLOWABLE
 
 def imageFilePaths(paths):

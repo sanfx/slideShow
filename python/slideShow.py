@@ -44,6 +44,35 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, animFlag=flag)
 		self.prepairWindow()
 
+	def print_(self):
+		dialog = QtGui.QPrintDialog(self.printer, self)
+		if dialog.exec_():
+			painter = QtGui.QPainter(self.printer)
+			rect = painter.viewport()
+			size = self.label.pixmap().size()
+			size.scale(rect.size(), QtCore.Qt.KeepAspectRatio)
+			painter.setViewport(rect.x(), rect.y(), size.width(), size.height())
+			painter.setWindow(self.label.pixmap().rect())
+			painter.drawPixmap(0, 0, self.label.pixmap())
+
+	def zoomIn(self):
+		self.label.scaleImage(1.25)
+
+	def zoomOut(self):
+		self.label.scaleImage(0.8)
+
+	def normalSize(self):
+		self.label.adjustSize()
+		self.scaleFactor = 1.0
+
+	def fitToWindow(self):
+		fitToWindow = self.fitToWindowAct.isChecked()
+		self.scrollArea.setWidgetResizable(fitToWindow)
+		if not fitToWindow:
+			self.normalSize()
+
+		self.updateActions()
+
 	def prepairWindow(self):
 		if not self._imagesInList:
 			msgBox = QtGui.QMessageBox()
@@ -57,9 +86,19 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		screen = QtGui.QDesktopWidget().screenGeometry(self)
 		size = self.geometry()
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		self.setStyleSheet("QWidget{background-color: #000000;}")
+		self.setStyleSheet("""
+			QWidget{
+			background-color: #000000;
+			}
+			QMenu { 
+			font-size:12px;  
+			color:white;  
+			background-color:qlineargradient(x1:0, y1:0, x1:0, y2:1, stop: 0 #cccccc, stop: 1 #333333);
+			}
+			""")
 		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 		self._buildUi()
+		self.createActions()
 		self.updateTimer = QtCore.QTimer()
 		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
 		self.showFullScreen()
@@ -67,8 +106,93 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		#Shows the first image
 		self.showImageByPath(self._imagesInList[0])
 
+	def open(self):
+		fileName = QtGui.QFileDialog.getOpenFileName(self, "Open File",
+				QtCore.QDir.currentPath())
+		if fileName:
+			image = QtGui.QImage(fileName)
+			if image.isNull():
+				QtGui.QMessageBox.information(self, "Image Viewer",
+						"Cannot load %s." % fileName)
+				return
+
+			self.label.setPixmap(QtGui.QPixmap.fromImage(image))
+			self.scaleFactor = 1.0
+
+			self.printAct.setEnabled(True)
+			self.fitToWindowAct.setEnabled(True)
+			self.updateActions()
+
+			if not self.fitToWindowAct.isChecked():
+				self.label.adjustSize()
+
+	def contextMenuEvent(self, event):
+		"""	Shows right click menu
+		"""
+		menu = self.createMenus()
+		# menu.setStyleSheet("* {background-color : grey } *:hover {color : brown }");
+		action = menu.exec_(self.mapToGlobal(event.pos()))
+
+	def createMenus(self):
+		menu = QtGui.QMenu(self)
+		self.fileMenu = QtGui.QMenu("&File", self)
+		self.fileMenu.addAction(self.openAct)
+		self.fileMenu.addAction(self.printAct)
+		self.fileMenu.addSeparator()
+		self.fileMenu.addAction(self.exitAct)
+
+		self.viewMenu = QtGui.QMenu("&View", self)
+		self.viewMenu.addAction(self.zoomInAct)
+		self.viewMenu.addAction(self.zoomOutAct)
+		self.viewMenu.addAction(self.normalSizeAct)
+		self.viewMenu.addSeparator()
+		self.viewMenu.addAction(self.fitToWindowAct)
+
+		# self.helpMenu = QtGui.QMenu("&Help", self)
+		# self.helpMenu.addAction(self.aboutAct)
+		# self.helpMenu.addAction(self.aboutQtAct)
+
+		self.menuBar().addMenu(self.fileMenu)
+		self.menuBar().addMenu(self.viewMenu)
+		# self.menuBar().addMenu(self.helpMenu)
+		menu.addMenu(self.fileMenu)
+		menu.addMenu(self.viewMenu)
+		# menu.addMenu(self.helpMenu)
+		return menu
+
+	def createActions(self):
+		self.openAct = QtGui.QAction("&Open...", self, shortcut="Ctrl+O",
+				triggered=self.open)
+
+		self.printAct = QtGui.QAction("&Print...", self, shortcut="Ctrl+P",
+				enabled=False, triggered=self.print_)
+
+		self.exitAct = QtGui.QAction("E&xit", self, shortcut="Ctrl+Q",
+				triggered=self.close)
+
+		self.zoomInAct = QtGui.QAction("Zoom &In (25%)", self,
+				shortcut="Ctrl++", enabled=False, triggered=self.zoomIn)
+
+		self.zoomOutAct = QtGui.QAction("Zoom &Out (25%)", self,
+				shortcut="Ctrl+-", enabled=False, triggered=self.zoomOut)
+
+		self.normalSizeAct = QtGui.QAction("&Normal Size", self,
+				shortcut="Ctrl+S", enabled=False, triggered=self.normalSize)
+
+		self.fitToWindowAct = QtGui.QAction("&Fit to Window", self,
+				enabled=False, checkable=True, shortcut="Ctrl+F",
+				triggered=self.fitToWindow)
+
+		# self.aboutAct = QtGui.QAction("&About", self, triggered=self.about)
+
+		# self.aboutQtAct = QtGui.QAction("About &Qt", self,
+		# 		triggered=QtGui.qApp.aboutQt)
+
 	def _buildUi(self):
 		self.label = QtGui.QLabel()
+		self.label.setBackgroundRole(QtGui.QPalette.Base)
+		self.label.setSizePolicy(QtGui.QSizePolicy.Ignored,
+			QtGui.QSizePolicy.Ignored)
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.setCentralWidget(self.label)
 
