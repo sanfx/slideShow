@@ -41,7 +41,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 	"""
 	def __init__(self, imgLst, num=0, flag=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
-		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, animFlag=flag)
+		qtstrImgLst = QtCore.QStringList(imgLst)
+		slideShowBase.SlideShowBase.__init__(self, imgLst=qtstrImgLst, ppState=False, count=num, animFlag=flag)
 		self.prepairWindow()
 
 	def print_(self):
@@ -130,7 +131,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		"""	Shows right click menu
 		"""
 		menu = self.createMenus()
-		# menu.setStyleSheet("* {background-color : grey } *:hover {color : brown }");
 		action = menu.exec_(self.mapToGlobal(event.pos()))
 
 	def createMenus(self):
@@ -148,16 +148,10 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.viewMenu.addSeparator()
 		self.viewMenu.addAction(self.fitToWindowAct)
 
-		# self.helpMenu = QtGui.QMenu("&Help", self)
-		# self.helpMenu.addAction(self.aboutAct)
-		# self.helpMenu.addAction(self.aboutQtAct)
-
 		self.menuBar().addMenu(self.fileMenu)
 		self.menuBar().addMenu(self.viewMenu)
-		# self.menuBar().addMenu(self.helpMenu)
 		menu.addMenu(self.fileMenu)
 		menu.addMenu(self.viewMenu)
-		# menu.addMenu(self.helpMenu)
 		return menu
 
 	def createActions(self):
@@ -183,10 +177,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				enabled=False, checkable=True, shortcut="Ctrl+F",
 				triggered=self.fitToWindow)
 
-		# self.aboutAct = QtGui.QAction("&About", self, triggered=self.about)
-
-		# self.aboutQtAct = QtGui.QAction("About &Qt", self,
-		# 		triggered=QtGui.qApp.aboutQt)
 
 	def _buildUi(self):
 		self.label = QtGui.QLabel()
