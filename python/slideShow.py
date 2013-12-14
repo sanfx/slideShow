@@ -32,6 +32,7 @@ import os
 import utils
 from PyQt4 import QtGui,QtCore
 import slideShowBase
+import gallery
 
 
 class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
@@ -42,7 +43,11 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 	def __init__(self, imgLst, num=0, flag=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
 		qtstrImgLst = QtCore.QStringList(imgLst)
+		self.__animRate = 1200
 		slideShowBase.SlideShowBase.__init__(self, imgLst=qtstrImgLst, ppState=False, count=num, animFlag=flag)
+		self._sw = QtGui.QDesktopWidget().screenGeometry(self).width()
+		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
+		self.__imgLst = imgLst
 		self.prepairWindow()
 
 	def print_(self):
@@ -226,6 +231,33 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			self.nextImage()
 		if event == 32:
 			self._pause = self.playPause()
+		if event == QtCore.Qt.Key_Up:
+			print "pressed up key"
+		if event == QtCore.Qt.Key_Down:
+			self.launchGallery()
+
+	def launchGallery(self):
+		self.animateDowSlideShow()
+		self.animateDownOpen()
+
+
+	def animateDownOpen(self):
+		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)
+		self.animGallery = QtCore.QPropertyAnimation(self.galleryWin, "geometry")
+		self.animGallery.setDuration(self.__animRate)
+		self.animGallery.setStartValue(QtCore.QRect(0, -(self._sh), self._sw, self._sh))
+		self.animGallery.setEndValue(self.geometry())
+		self.galleryWin.show()
+		self.animGallery.start()
+
+
+	def animateDowSlideShow(self):
+		self.playPause()
+		self.animation = QtCore.QPropertyAnimation(self, "geometry")
+		self.animation.setDuration(self.__animRate)
+		self.animation.setStartValue(self.geometry())
+		self.animation.setEndValue(QtCore.QRect(0, self._sh, self._sw, self._sh))
+		self.animation.start()
 
 def main(imgLst=None):
 	app = QtGui.QApplication(sys.argv)

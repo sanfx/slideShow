@@ -1,6 +1,6 @@
 import os
 import sys
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
@@ -28,3 +28,13 @@ def getDirContent(path):
 	except OSError:
 		raise OSError("Provided path '%s' doesn't exists." % path)
 
+
+def animateDownOpen(window, startPos, endPos, sh, sw):
+	animGallery = QtCore.QPropertyAnimation(window, "geometry")
+	animGallery.setDuration(500);
+	animGallery.setStartValue(QtCore.QRect(0, startPos, sw, sh))
+	animGallery.setEndValue(QtCore.QRect(0, endPos, sw, sh))
+	window.show()
+	window.activateWindow()
+	window.raise_()
+	animGallery.start()
