@@ -146,11 +146,11 @@ class GalleryUi(QtGui.QTableView):
 			 QtCore.Qt.X11BypassWindowManagerHint
 			 )
 		col = self.__sw/thumbWidth 
-		_twoDLst = convertToTwoDList(images, col)
+		self._twoDLst = convertToTwoDList(images, col)
 		self.setGeometry(0, 0, self.__sw, self.__sh)
 		self.showFullScreen()
 		self.setColumnWidth(thumbWidth, thumbheight)
-		self._lm = MyListModel(self._slideShowWin, _twoDLst, col, (thumbWidth, thumbheight), self)
+		self._lm = MyListModel(self._slideShowWin, self._twoDLst, col, (thumbWidth, thumbheight), self)
 		self.setShowGrid(False)
 		self.setWordWrap(True)
 		self.setModel(self._lm)
@@ -158,11 +158,12 @@ class GalleryUi(QtGui.QTableView):
 		self.resizeRowsToContents()
 		self.selectionModel().selectionChanged.connect(self.selChanged)
 
-	def selChanged(self, selected, deselected):
-		print "Hello"
-		# TODO: get selected item
-		# and set in the slideshow selection
-		# print self._lm.index()
+	def selChanged(self):
+		row = self.selectionModel().currentIndex().row()
+		column = self.selectionModel().currentIndex().column()
+		# if specific image is selected the slideshow opens paused.
+		self._slideShowWin.playPause()
+		self._slideShowWin.showImageByPath(self._twoDLst[row][column])
 
 	def _browseDir(self):
 		"""	method to browse path you want to
