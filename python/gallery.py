@@ -57,7 +57,6 @@ class MyListModel(QtCore.QAbstractTableModel):
 			row = index.row()
 			column = index.column()
 			try:
-				# self.selectonChanged(row, column)
 				fileName = os.path.split(self._listdata[row][column])[-1]
 			except IndexError:
 				return
@@ -104,11 +103,6 @@ class MyListModel(QtCore.QAbstractTableModel):
 			self.dataChanged.emit(index, index)
 			return True
 		return False
-
-	# def selectonChanged(self, row, col):
-	# 	print "Hello"
-	# 	self._slideShowWin.showImageByPath(self._listdata[row][col])
-
 
 	def __renameFile(self, fileToRename, newName):
 		"""	method to rename a image name when double click
@@ -208,6 +202,7 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
+			self._slideShowWin.close()
 			self.close()
 		if event == QtCore.Qt.Key_Up:
 			self.animateUpSlideShow()
