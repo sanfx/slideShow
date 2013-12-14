@@ -153,11 +153,12 @@ class GalleryUi(QtGui.QTableView):
 		self.selectionModel().selectionChanged.connect(self.selChanged)
 
 	def selChanged(self):
-		row = self.selectionModel().currentIndex().row()
-		column = self.selectionModel().currentIndex().column()
-		# if specific image is selected the slideshow opens paused.
-		self._slideShowWin.playPause()
-		self._slideShowWin.showImageByPath(self._twoDLst[row][column])
+		if self._slideShowWin:
+			row = self.selectionModel().currentIndex().row()
+			column = self.selectionModel().currentIndex().column()
+			# if specific image is selected the slideshow opens paused.
+			self._slideShowWin.playPause()
+			self._slideShowWin.showImageByPath(self._twoDLst[row][column])
 
 	def _browseDir(self):
 		"""	method to browse path you want to
@@ -202,10 +203,12 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
-			self._slideShowWin.close()
+			if self._slideShowWin:
+				self._slideShowWin.close()
 			self.close()
 		if event == QtCore.Qt.Key_Up:
-			self.animateUpSlideShow()
+			if self._slideShowWin:
+				self.animateUpSlideShow()
 
 def convertToTwoDList(l, n):
 	"""	Method to convert a list to two
