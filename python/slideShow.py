@@ -50,6 +50,12 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.__imgLst = imgLst
 		self.prepairWindow()
 
+
+	# def resizeEvent(self, event):    
+	# 	self.label.resize(event.size())
+	# 	# self.overlayExifText.resize(event.size())
+	# 	event.accept()
+
 	def print_(self):
 		dialog = QtGui.QPrintDialog(self.printer, self)
 		if dialog.exec_():
@@ -182,9 +188,13 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				enabled=False, checkable=True, shortcut="Ctrl+F",
 				triggered=self.fitToWindow)
 
-
 	def _buildUi(self):
 		self.label = QtGui.QLabel()
+		self.overlayExifText = QtGui.QLabel(self.label)
+		self.overlayExifText.setSizePolicy(QtGui.QSizePolicy.Ignored,
+			QtGui.QSizePolicy.Ignored)
+		self.overlayExifText.setStyleSheet("QLabel { color : blue; }")
+		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
 		self.label.setBackgroundRole(QtGui.QPalette.Base)
 		self.label.setSizePolicy(QtGui.QSizePolicy.Ignored,
 			QtGui.QSizePolicy.Ignored)
@@ -215,6 +225,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 					self.label.size(),
 					QtCore.Qt.KeepAspectRatio,
 					QtCore.Qt.SmoothTransformation))
+			self.overlayExifText.setText("\n".join(list(utils.getExifData((path)))))
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,

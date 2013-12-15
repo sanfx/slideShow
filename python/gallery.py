@@ -1,5 +1,6 @@
 import sys
 import os
+import utils
 import slideShowBase
 
 from PyQt4 import QtGui, QtCore
@@ -60,7 +61,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 				fileName = os.path.split(self._listdata[row][column])[-1]
 			except IndexError:
 				return
-			return QtCore.QString(fileName)
+			return QtCore.QString("\n".join(list(utils.getExifData((self._listdata[row][column])))))
 
 		if index.isValid() and role == QtCore.Qt.DecorationRole:
 			row = index.row()

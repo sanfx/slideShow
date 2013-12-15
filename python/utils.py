@@ -1,5 +1,6 @@
 import os
 import sys
+import exifread
 from PyQt4 import QtGui
 
 def isExtensionSupported(filename):
@@ -27,3 +28,17 @@ def getDirContent(path):
 		return os.listdir(path)
 	except OSError:
 		raise OSError("Provided path '%s' doesn't exists." % path)
+
+def getExifData(filePath):
+	try:
+		f = open(filePath, 'rb')
+	except OSError:
+		return
+	tags = exifread.process_file(f)
+	exifData = {}
+	if tags:
+		# print "Showing exif data for image '%s':" % os.path.basename(filePath)
+		for tag, data in tags.iteritems():
+			yield "%s: %s" % (tag, data)
+
+# print str(getExifData('/Users/sanjeevkumar/Pictures/tempting/yjytjh.jpg'))
