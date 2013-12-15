@@ -30,7 +30,8 @@
 import sys
 import os
 import utils
-from PyQt4 import QtGui,QtCore
+from PyQt4 import QtGui
+from PyQt4 import QtCore
 import slideShowBase
 import gallery
 
@@ -49,12 +50,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
 		self.__imgLst = imgLst
 		self.prepairWindow()
-
-
-	# def resizeEvent(self, event):    
-	# 	self.label.resize(event.size())
-	# 	# self.overlayExifText.resize(event.size())
-	# 	event.accept()
 
 	def print_(self):
 		dialog = QtGui.QPrintDialog(self.printer, self)
@@ -91,7 +86,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			msgBox.setText("No Image found." )
 			msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
 			if msgBox.exec_() == msgBox.Open:
-				self.populateImagestoSlideShow(self._browseDir())
+				self.populateImagestoSlideShow(utils._browseDir("Select Directory to SlideShow"))
 			else:
 				sys.exit()
 		# Centre UI
@@ -115,7 +110,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
 		self.showFullScreen()
 		self.playPause()
-		#Shows the first image
+		# Shows the first image
 		self.showImageByPath(self._imagesInList[0])
 
 	def open(self):
@@ -202,15 +197,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.setCentralWidget(self.label)
 
-	def _browseDir(self):
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
-				"Select Directory to SlideShow",
-				os.getcwd()))
-		if selectedDir:
-			return selectedDir
-		else:
-			sys.exit()
-
 	def nextImage(self):
 		"""	 by overloading I don't have to mock showImageByPath
 		"""
@@ -246,12 +232,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		if event == QtCore.Qt.Key_Up:
 			print "pressed up key"
 		if event == QtCore.Qt.Key_Down:
-			self.launchGallery()
-
-	def launchGallery(self):
-		self.animateDowSlideShow()
-		self.animateDownOpen()
-
+			self.animateDowSlideShow()
+			self.animateDownOpen()
 
 	def animateDownOpen(self):
 		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)

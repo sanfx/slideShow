@@ -93,20 +93,11 @@ class MyListModel(QtCore.QAbstractTableModel):
 				newName = os.path.join(str(os.path.split(self._listdata[row][column])[0]), str(value.toString()))
 			except IndexError:
 				return
-			self.__renameFile(self._listdata[row][column], newName)
+			utils._renameFile(self._listdata[row][column], newName)
 			self._listdata[row][column] = newName
 			self.dataChanged.emit(index, index)
 			return True
 		return False
-
-	def __renameFile(self, fileToRename, newName):
-		"""	method to rename a image name when double click
-		"""
-		try:
-			os.rename(str(fileToRename), newName)
-		except Exception, err:
-			print err
-
 
 class GalleryUi(QtGui.QTableView):
 	"""	Class contains the methods that forms the
@@ -125,7 +116,7 @@ class GalleryUi(QtGui.QTableView):
 			setting up thumbnaul size and animation rate
 		"""
 		if not images:
-			path = self._browseDir()
+			path = utils._browseDir("Select the directory that contains images")
 			images = slideShowBase.ingestData(path)
 		thumbWidth = 200
 		thumbheight = thumbWidth + 20
@@ -155,17 +146,6 @@ class GalleryUi(QtGui.QTableView):
 			self._slideShowWin.playPause()
 			self._slideShowWin.showImageByPath(self._twoDLst[row][column])
 
-	def _browseDir(self):
-		"""	method to browse path you want to
-			view in gallery
-		"""
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
-				"Select Directory to SlideShow",
-				os.getcwd()))
-		if selectedDir:
-			return selectedDir
-		else:
-			sys.exit()
 
 	def animateUpSlideShow(self):
 		""" animate the slideshow window back up

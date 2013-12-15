@@ -48,6 +48,26 @@ def convertToTwoDList(l, n):
 	"""
 	return [l[i:i+n] for i in range(0, len(l), n)]
 
+def _renameFile(fileToRename, newName):
+	"""	method to rename a image name when double click
+	"""
+	try:
+		os.rename(str(fileToRename), newName)
+	except Exception, err:
+		print err
+
+def _browseDir(label):
+	"""	method to browse path you want to
+		view in gallery
+	"""
+	selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
+			label,
+			os.getcwd()))
+	if selectedDir:
+		return selectedDir
+	else:
+		sys.exit()
+
 def generatePixmap(value):
 	"""	generates a pixmap if already not incache
 	"""
