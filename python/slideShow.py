@@ -30,7 +30,8 @@
 import sys
 import os
 import utils
-from PyQt4 import QtGui,QtCore
+from PyQt4 import QtGui
+from PyQt4 import QtCore
 import slideShowBase
 import gallery
 
@@ -85,7 +86,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			msgBox.setText("No Image found." )
 			msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
 			if msgBox.exec_() == msgBox.Open:
-				self.populateImagestoSlideShow(self._browseDir())
+				self.populateImagestoSlideShow(utils._browseDir("Select Directory to SlideShow"))
 			else:
 				sys.exit()
 		# Centre UI
@@ -109,7 +110,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.connect(self.updateTimer, QtCore.SIGNAL("timeout()"), self.nextImage)
 		self.showFullScreen()
 		self.playPause()
-		#Shows the first image
+		# Shows the first image
 		self.showImageByPath(self._imagesInList[0])
 
 	def open(self):
@@ -182,23 +183,19 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				enabled=False, checkable=True, shortcut="Ctrl+F",
 				triggered=self.fitToWindow)
 
-
 	def _buildUi(self):
+		sizePolicy = QtGui.QSizePolicy()
+		sizePolicy.setHorizontalStretch(QtGui.QSizePolicy.Minimum)
 		self.label = QtGui.QLabel()
+		self.overlayExifText = QtGui.QLabel(self.label)
+		self.overlayExifText.setSizePolicy(sizePolicy)
+		self.overlayExifText.setStyleSheet("QLabel { color : blue; }")
+		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
 		self.label.setBackgroundRole(QtGui.QPalette.Base)
 		self.label.setSizePolicy(QtGui.QSizePolicy.Ignored,
 			QtGui.QSizePolicy.Ignored)
 		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.setCentralWidget(self.label)
-
-	def _browseDir(self):
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
-				"Select Directory to SlideShow",
-				os.getcwd()))
-		if selectedDir:
-			return selectedDir
-		else:
-			sys.exit()
 
 	def nextImage(self):
 		"""	 by overloading I don't have to mock showImageByPath
@@ -215,6 +212,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 					self.label.size(),
 					QtCore.Qt.KeepAspectRatio,
 					QtCore.Qt.SmoothTransformation))
+			self.overlayExifText.setText("\n".join(list(utils.getExifData((path)))))
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
@@ -234,12 +232,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		if event == QtCore.Qt.Key_Up:
 			print "pressed up key"
 		if event == QtCore.Qt.Key_Down:
-			self.launchGallery()
-
-	def launchGallery(self):
-		self.animateDowSlideShow()
-		self.animateDownOpen()
-
+			self.animateDowSlideShow()
+			self.animateDownOpen()
 
 	def animateDownOpen(self):
 		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)

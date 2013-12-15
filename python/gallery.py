@@ -1,5 +1,6 @@
 import sys
 import os
+import utils
 import slideShowBase
 
 from PyQt4 import QtGui, QtCore
@@ -60,7 +61,8 @@ class MyListModel(QtCore.QAbstractTableModel):
 				fileName = os.path.split(self._listdata[row][column])[-1]
 			except IndexError:
 				return
-			return QtCore.QString(fileName)
+			exifData = "\n".join(list(utils.getExifData((self._listdata[row][column]))))
+			return QtCore.QString(exifData if exifData else fileName)
 
 		if index.isValid() and role == QtCore.Qt.DecorationRole:
 			row = index.row()
@@ -73,19 +75,12 @@ class MyListModel(QtCore.QAbstractTableModel):
 			pixmap = None
 			# value is image path as key
   			if self.pixmap_cache.has_key(value) == False:
-				pixmap=self.generatePixmap(value)
+				pixmap=utils.generatePixmap(value)
 				self.pixmap_cache[value] =  pixmap
 			else:
 				pixmap = self.pixmap_cache[value]
 			return QtGui.QImage(pixmap).scaled(self._thumbRes[0],self._thumbRes[1], 
 				QtCore.Qt.KeepAspectRatio)
-
-	def generatePixmap(self, value):
-		"""	generates a pixmap if already not incache
-		"""
-		pixmap=QtGui.QPixmap()
-		pixmap.load(value)
-		return pixmap
 
 	def flags(self, index):
 		return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
@@ -98,20 +93,11 @@ class MyListModel(QtCore.QAbstractTableModel):
 				newName = os.path.join(str(os.path.split(self._listdata[row][column])[0]), str(value.toString()))
 			except IndexError:
 				return
-			self.__renameFile(self._listdata[row][column], newName)
+			utils._renameFile(self._listdata[row][column], newName)
 			self._listdata[row][column] = newName
 			self.dataChanged.emit(index, index)
 			return True
 		return False
-
-	def __renameFile(self, fileToRename, newName):
-		"""	method to rename a image name when double click
-		"""
-		try:
-			os.rename(str(fileToRename), newName)
-		except Exception, err:
-			print err
-
 
 class GalleryUi(QtGui.QTableView):
 	"""	Class contains the methods that forms the
@@ -130,7 +116,7 @@ class GalleryUi(QtGui.QTableView):
 			setting up thumbnaul size and animation rate
 		"""
 		if not images:
-			path = self._browseDir()
+			path = utils._browseDir("Select the directory that contains images")
 			images = slideShowBase.ingestData(path)
 		thumbWidth = 200
 		thumbheight = thumbWidth + 20
@@ -140,7 +126,7 @@ class GalleryUi(QtGui.QTableView):
 			 QtCore.Qt.X11BypassWindowManagerHint
 			 )
 		col = self.__sw/thumbWidth 
-		self._twoDLst = convertToTwoDList(images, col)
+		self._twoDLst = utils.convertToTwoDList(images, col)
 		self.setGeometry(0, 0, self.__sw, self.__sh)
 		self.showFullScreen()
 		self.setColumnWidth(thumbWidth, thumbheight)
@@ -153,23 +139,13 @@ class GalleryUi(QtGui.QTableView):
 		self.selectionModel().selectionChanged.connect(self.selChanged)
 
 	def selChanged(self):
-		row = self.selectionModel().currentIndex().row()
-		column = self.selectionModel().currentIndex().column()
-		# if specific image is selected the slideshow opens paused.
-		self._slideShowWin.playPause()
-		self._slideShowWin.showImageByPath(self._twoDLst[row][column])
+		if self._slideShowWin:
+			row = self.selectionModel().currentIndex().row()
+			column = self.selectionModel().currentIndex().column()
+			# if specific image is selected the slideshow opens paused.
+			self._slideShowWin.playPause()
+			self._slideShowWin.showImageByPath(self._twoDLst[row][column])
 
-	def _browseDir(self):
-		"""	method to browse path you want to
-			view in gallery
-		"""
-		selectedDir = str(QtGui.QFileDialog.getExistingDirectory(None, 
-				"Select Directory to SlideShow",
-				os.getcwd()))
-		if selectedDir:
-			return selectedDir
-		else:
-			sys.exit()
 
 	def animateUpSlideShow(self):
 		""" animate the slideshow window back up
@@ -202,23 +178,23 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
-			self._slideShowWin.close()
+			if self._slideShowWin:
+				self._slideShowWin.close()
 			self.close()
 		if event == QtCore.Qt.Key_Up:
-			self.animateUpSlideShow()
+			if self._slideShowWin:
+				self.animateUpSlideShow()
 
-def convertToTwoDList(l, n):
-	"""	Method to convert a list to two
-		dimensional list for QTableView
-	"""
-	return [l[i:i+n] for i in range(0, len(l), n)]
-
-def main():
+def main(imgLst=None):
 	"""	method to start gallery standalone
 	"""
 	app = QtGui.QApplication(sys.argv)
-	window =  GalleryUi(None)
+	window =  GalleryUi(None, imgLst)
+	window.raise_()
 	sys.exit(app.exec_())
 	
 if __name__ == '__main__':
-	main()
+	curntPath = os.getcwd()
+	if len(sys.argv) > 1:
+		curntPath = sys.argv[1:]
+	main(slideShowBase.ingestData(curntPath))
