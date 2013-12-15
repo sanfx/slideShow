@@ -10,14 +10,18 @@ Usage:
 from terminal go to directory containig images you want to slideshow or view in imagegallery
 and launch the python -o slideShow.py
 
-The slideshow autostarts:
-Press:
-Spacebar to toggle pause/play
-Left key to see previous image
-Right key to see next image
-Down key to open image gallery
-Up key to open slideshow back
-Escape to exit
+The slideshow autostarts (Keyboard Shortcuts):
+* Spacebar to toggle pause/play
+
+* Left key to see previous image
+
+* Right key to see next image
+
+* Down key to open image gallery
+
+* Up key to open slideshow back
+
+* Escape to exit
 
 TODO:
 ====
