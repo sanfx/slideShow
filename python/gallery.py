@@ -135,7 +135,7 @@ class GalleryUi(QtGui.QTableView):
 			 QtCore.Qt.X11BypassWindowManagerHint
 			 )
 		col = self.__sw/thumbWidth 
-		self._twoDLst = convertToTwoDList(images, col)
+		self._twoDLst = utils.convertToTwoDList(images, col)
 		self.setGeometry(0, 0, self.__sw, self.__sh)
 		self.showFullScreen()
 		self.setColumnWidth(thumbWidth, thumbheight)
@@ -205,18 +205,16 @@ class GalleryUi(QtGui.QTableView):
 			if self._slideShowWin:
 				self.animateUpSlideShow()
 
-def convertToTwoDList(l, n):
-	"""	Method to convert a list to two
-		dimensional list for QTableView
-	"""
-	return [l[i:i+n] for i in range(0, len(l), n)]
-
-def main():
+def main(imgLst=None):
 	"""	method to start gallery standalone
 	"""
 	app = QtGui.QApplication(sys.argv)
-	window =  GalleryUi(None)
+	window =  GalleryUi(None, imgLst)
+	window.raise_()
 	sys.exit(app.exec_())
 	
 if __name__ == '__main__':
-	main()
+	curntPath = os.getcwd()
+	if len(sys.argv) > 1:
+		curntPath = sys.argv[1:]
+	main(slideShowBase.ingestData(curntPath))

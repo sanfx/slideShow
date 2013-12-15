@@ -42,6 +42,12 @@ def getExifData(filePath):
 		for tag, data in tags.iteritems():
 			yield "%s: %s" % (tag, data)
 
+def convertToTwoDList(l, n):
+	"""	Method to convert a list to two
+		dimensional list for QTableView
+	"""
+	return [l[i:i+n] for i in range(0, len(l), n)]
+
 def generatePixmap(value):
 	"""	generates a pixmap if already not incache
 	"""
