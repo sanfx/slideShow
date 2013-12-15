@@ -3,6 +3,8 @@ slideShow
 
 PyQt4 based imageSlideshow with ImageGallery
 
+add alias for quickacces from terminal: alias show='python ~/Development/python/slideShow/python/slideShow.py'
+
 Usage:
 =====
 from terminal go to directory containig images you want to slideshow or view in imagegallery
@@ -19,8 +21,9 @@ Escape to exit
 
 TODO:
 ====
-**press e to show/hide exif data**
-** Multithreaded approach for launcing Gallery**
+* press e to show/hide exif data
+
+* Multithreaded approach for launcing Gallery
 
 Known Issues:
 ============
