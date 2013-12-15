@@ -30,6 +30,8 @@ def getDirContent(path):
 		raise OSError("Provided path '%s' doesn't exists." % path)
 
 def getExifData(filePath):
+	"""	Gets exif data from image
+	"""
 	try:
 		f = open(filePath, 'rb')
 	except OSError:
@@ -37,8 +39,12 @@ def getExifData(filePath):
 	tags = exifread.process_file(f)
 	exifData = {}
 	if tags:
-		# print "Showing exif data for image '%s':" % os.path.basename(filePath)
 		for tag, data in tags.iteritems():
 			yield "%s: %s" % (tag, data)
 
-# print str(getExifData('/Users/sanjeevkumar/Pictures/tempting/yjytjh.jpg'))
+def generatePixmap(value):
+	"""	generates a pixmap if already not incache
+	"""
+	pixmap=QtGui.QPixmap()
+	pixmap.load(value)
+	return pixmap

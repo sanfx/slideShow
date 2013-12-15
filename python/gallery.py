@@ -61,7 +61,8 @@ class MyListModel(QtCore.QAbstractTableModel):
 				fileName = os.path.split(self._listdata[row][column])[-1]
 			except IndexError:
 				return
-			return QtCore.QString("\n".join(list(utils.getExifData((self._listdata[row][column])))))
+			exifData = "\n".join(list(utils.getExifData((self._listdata[row][column]))))
+			return QtCore.QString(exifData if exifData else fileName)
 
 		if index.isValid() and role == QtCore.Qt.DecorationRole:
 			row = index.row()
@@ -74,19 +75,12 @@ class MyListModel(QtCore.QAbstractTableModel):
 			pixmap = None
 			# value is image path as key
   			if self.pixmap_cache.has_key(value) == False:
-				pixmap=self.generatePixmap(value)
+				pixmap=utils.generatePixmap(value)
 				self.pixmap_cache[value] =  pixmap
 			else:
 				pixmap = self.pixmap_cache[value]
 			return QtGui.QImage(pixmap).scaled(self._thumbRes[0],self._thumbRes[1], 
 				QtCore.Qt.KeepAspectRatio)
-
-	def generatePixmap(self, value):
-		"""	generates a pixmap if already not incache
-		"""
-		pixmap=QtGui.QPixmap()
-		pixmap.load(value)
-		return pixmap
 
 	def flags(self, index):
 		return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable

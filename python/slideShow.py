@@ -189,10 +189,11 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				triggered=self.fitToWindow)
 
 	def _buildUi(self):
+		sizePolicy = QtGui.QSizePolicy()
+		sizePolicy.setHorizontalStretch(QtGui.QSizePolicy.Minimum)
 		self.label = QtGui.QLabel()
 		self.overlayExifText = QtGui.QLabel(self.label)
-		self.overlayExifText.setSizePolicy(QtGui.QSizePolicy.Ignored,
-			QtGui.QSizePolicy.Ignored)
+		self.overlayExifText.setSizePolicy(sizePolicy)
 		self.overlayExifText.setStyleSheet("QLabel { color : blue; }")
 		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
 		self.label.setBackgroundRole(QtGui.QPalette.Base)
