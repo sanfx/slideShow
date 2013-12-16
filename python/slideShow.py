@@ -30,8 +30,7 @@
 import sys
 import os
 import utils
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from PyQt4 import QtGui, QtCore
 import slideShowBase
 import gallery
 
@@ -188,6 +187,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		sizePolicy.setHorizontalStretch(QtGui.QSizePolicy.Minimum)
 		self.label = QtGui.QLabel()
 		self.overlayExifText = QtGui.QLabel(self.label)
+		self.overlayExifText.setScaledContents(True)
 		self.overlayExifText.setSizePolicy(sizePolicy)
 		self.overlayExifText.setStyleSheet("QLabel { color : blue; }")
 		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
@@ -265,4 +265,4 @@ if __name__ == '__main__':
 	curntPaths = os.getcwd()
 	if len(sys.argv) > 1:
 		curntPaths = sys.argv[1:]
-	main(slideShowBase.ingestData(curntPaths))
+	main(utils.ingestData(curntPaths))

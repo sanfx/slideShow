@@ -45,15 +45,3 @@ class SlideShowBase(object):
 			self._pause = False
 			self.updateTimer.stop()
 
-def ingestData(paths):
-	"""	This method is used to create a list containing
-		images path to slideshow.
-	"""
-	if isinstance(paths, list):
-		imgLst = utils.imageFilePaths(paths)
-
-	elif isinstance(paths, str):
-		imgLst =  utils.imageFilePaths([paths])
-	else:
-		print " You can either enter a list of paths or single path"
-	return imgLst

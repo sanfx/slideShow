@@ -1,7 +1,7 @@
 import sys
 import os
 import utils
-import slideShowBase
+import utils
 
 from PyQt4 import QtGui, QtCore
 
@@ -24,6 +24,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 	def colData(self, section, orientation, role):
 		if role == QtCore.Qt.DisplayRole:
 			return None
+		return None
 
 	def headerData(self, section, orientation, role):
 		if role == QtCore.Qt.DisplayRole:
@@ -39,13 +40,16 @@ class MyListModel(QtCore.QAbstractTableModel):
 	def data(self, index, role):
 		""" method sets the data/images to visible in table
 		"""
-		if index.isValid() and role == QtCore.Qt.SizeHintRole:
+		if not index.isValid():
+			return None
+
+		if role == QtCore.Qt.SizeHintRole:
 			return  QtCore.QSize(*self._thumbRes)
 
-		if index.isValid() and role == QtCore.Qt.TextAlignmentRole:
+		if role == QtCore.Qt.TextAlignmentRole:
 		 	return QtCore.Qt.AlignCenter
 
-		if index.isValid() and role == QtCore.Qt.EditRole:
+		if role == QtCore.Qt.EditRole:
 			row = index.row()
 			column = index.column()
 			try:
@@ -54,7 +58,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 				return
 			return fileName
 
-		if index.isValid() and role == QtCore.Qt.ToolTipRole:
+		if role == QtCore.Qt.ToolTipRole:
 			row = index.row()
 			column = index.column()
 			try:
@@ -64,7 +68,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 			exifData = "\n".join(list(utils.getExifData((self._listdata[row][column]))))
 			return QtCore.QString(exifData if exifData else fileName)
 
-		if index.isValid() and role == QtCore.Qt.DecorationRole:
+		if role == QtCore.Qt.DecorationRole:
 			row = index.row()
 			column = index.column()
 			try:
@@ -117,7 +121,7 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		if not images:
 			path = utils._browseDir("Select the directory that contains images")
-			images = slideShowBase.ingestData(path)
+			images = utils.ingestData(path)
 		thumbWidth = 200
 		thumbheight = thumbWidth + 20
 		self.setWindowFlags(
@@ -197,4 +201,4 @@ if __name__ == '__main__':
 	curntPath = os.getcwd()
 	if len(sys.argv) > 1:
 		curntPath = sys.argv[1:]
-	main(slideShowBase.ingestData(curntPath))
+	main(utils.ingestData(curntPath))

@@ -33,15 +33,13 @@ def getExifData(filePath):
 	"""	Gets exif data from image
 	"""
 	try:
-		f = open(filePath, 'rb')
+		with open(filePath, 'rb') as f:
+			return ("%s: %s" % (tag, data)
+                    for tag, data in exifread.process_file(f).iteritems()
+                    if tag != 'EXIF Tag 0x9009')
 	except OSError:
 		return
-	tags = exifread.process_file(f)
-	exifData = {}
-	if tags:
-		for tag, data in tags.iteritems():
-			yield "%s: %s" % (tag, data)
-
+	
 def convertToTwoDList(l, n):
 	"""	Method to convert a list to two
 		dimensional list for QTableView
@@ -74,3 +72,16 @@ def generatePixmap(value):
 	pixmap=QtGui.QPixmap()
 	pixmap.load(value)
 	return pixmap
+
+def ingestData(paths):
+	"""	This method is used to create a list containing
+		images path to slideshow.
+	"""
+	if isinstance(paths, list):
+		imgLst = imageFilePaths(paths)
+
+	elif isinstance(paths, str):
+		imgLst =  imageFilePaths([paths])
+	else:
+		print "You can either enter a list of paths or single path"
+	return imgLst
