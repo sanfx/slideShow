@@ -3,6 +3,13 @@ import sys
 import exifread
 from PyQt4 import QtGui
 
+
+class InvalidArgmentException(Exception):
+	pass
+
+
+		
+
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
 	"""
@@ -16,11 +23,11 @@ def imageFilePaths(paths):
 		dirContent = getDirContent(_path)
 		for each in dirContent:
 			selFile = os.path.join(_path, each)
-			if ifFilePathExists(selFile) and isExtensionSupported(selFile):
+			if filePathExists(selFile) and isExtensionSupported(selFile):
 				imagesWithPath.append(selFile)
 	return list(set(imagesWithPath))
 
-def ifFilePathExists(selFile):
+def filePathExists(selFile):
 	return os.path.isfile(selFile)
 
 def getDirContent(path):
@@ -36,7 +43,9 @@ def getExifData(filePath):
 		with open(filePath, 'rb') as f:
 			return ("%s: %s" % (tag, data)
                     for tag, data in exifread.process_file(f).iteritems()
-                    if tag != 'EXIF Tag 0x9009')
+                    if tag not in ('EXIF Tag 0x9009',
+                    	'MakerNote Tag 0x0099',
+                    	'EXIF UserComment'))
 	except OSError:
 		return
 	
@@ -64,6 +73,7 @@ def _browseDir(label):
 	if selectedDir:
 		return selectedDir
 	else:
+		# user cancelled it!
 		sys.exit()
 
 def generatePixmap(value):
@@ -78,10 +88,8 @@ def ingestData(paths):
 		images path to slideshow.
 	"""
 	if isinstance(paths, list):
-		imgLst = imageFilePaths(paths)
-
+		return imageFilePaths(paths)
 	elif isinstance(paths, str):
-		imgLst =  imageFilePaths([paths])
+		return  imageFilePaths([paths])
 	else:
-		print "You can either enter a list of paths or single path"
-	return imgLst
+		return None

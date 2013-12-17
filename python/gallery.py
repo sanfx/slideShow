@@ -1,20 +1,18 @@
 import sys
 import os
 import utils
-import utils
-
 from PyQt4 import QtGui, QtCore
 
-class MyListModel(QtCore.QAbstractTableModel): 
-	def __init__(self, window, datain, col, thumbRes, parent=None): 
-		""" Methods in this class sets up data/images to be
+class MyListModel(QtCore.QAbstractTableModel):
+	def __init__(self, window, datain, col, thumbRes, parent=None):
+		"""	Methods in this class sets up data/images to be
 			visible in the table.
 			Args:
 				datain(list): 2D list where each item is a row
 				col(int): number of columns to show in table
-				thumbRes(tuple): resolution of the thumbnail 
+				thumbRes(tuple): resolution of the thumbnail
 		"""
-		QtCore.QAbstractListModel.__init__(self, parent) 
+		QtCore.QAbstractListModel.__init__(self, parent)
 		self._slideShowWin = window
 		self._thumbRes = thumbRes
 		self._listdata = datain
@@ -22,19 +20,30 @@ class MyListModel(QtCore.QAbstractTableModel):
 		self._col = col
 
 	def colData(self, section, orientation, role):
+		"""	makes the table column header display
+			nothing.
+		"""
 		if role == QtCore.Qt.DisplayRole:
 			return None
 		return None
 
 	def headerData(self, section, orientation, role):
+		"""	Makes the header display nothing, if
+			headerData is not defined numbers show up.
+		"""
 		if role == QtCore.Qt.DisplayRole:
 			if orientation in [QtCore.Qt.Vertical, QtCore.Qt.Horizontal]:
 				return None
+		return None
 
-	def rowCount(self, parent=QtCore.QModelIndex()): 
-		return len(self._listdata) 
+	def rowCount(self, parent=QtCore.QModelIndex()):
+	 	"""	Method sets the number of rows
+	 	"""
+		return len(self._listdata)
 
 	def columnCount(self, parent):
+		"""	sets the number of columsns
+		"""
 		return self._col
 
 	def data(self, index, role):
@@ -78,23 +87,30 @@ class MyListModel(QtCore.QAbstractTableModel):
 
 			pixmap = None
 			# value is image path as key
-  			if self.pixmap_cache.has_key(value) == False:
-				pixmap=utils.generatePixmap(value)
-				self.pixmap_cache[value] =  pixmap
+			if not self.pixmap_cache.has_key(value):
+				pixmap = utils.generatePixmap(value)
+				self.pixmap_cache[value] = pixmap
 			else:
 				pixmap = self.pixmap_cache[value]
-			return QtGui.QImage(pixmap).scaled(self._thumbRes[0],self._thumbRes[1], 
+			return QtGui.QImage(pixmap).scaled(self._thumbRes[0], self._thumbRes[1],
 				QtCore.Qt.KeepAspectRatio)
 
 	def flags(self, index):
+		"""	This method sets the text in the cell editor selected
+			and editable and enabled.
+		"""
 		return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
 	def setData(self, index, value, role=QtCore.Qt.EditRole):
+		"""	Sets teh data of each cell, double click to rename 
+			the selected image.
+		"""
 		if role == QtCore.Qt.EditRole:
 			row = index.row()
 			column = index.column()
 			try:
-				newName = os.path.join(str(os.path.split(self._listdata[row][column])[0]), str(value.toString()))
+				newName = os.path.join(str(os.path.split(self._listdata[row][column])[0]),
+				 str(value.toString()))
 			except IndexError:
 				return
 			utils._renameFile(self._listdata[row][column], newName)
@@ -107,8 +123,8 @@ class GalleryUi(QtGui.QTableView):
 	"""	Class contains the methods that forms the
 		UI of Image galery
 	"""
-	def __init__(self, window, imgagesPathLst=None):
-		super(GalleryUi, self).__init__()
+	def __init__(self, window, imgagesPathLst=None, parent=None):
+		super(GalleryUi, self).__init__(parent)
 		self._slideShowWin = window
 		self.__sw = QtGui.QDesktopWidget().screenGeometry(self).width()
 		self.__sh = QtGui.QDesktopWidget().screenGeometry(self).height()
@@ -122,19 +138,20 @@ class GalleryUi(QtGui.QTableView):
 		if not images:
 			path = utils._browseDir("Select the directory that contains images")
 			images = utils.ingestData(path)
-		thumbWidth = 200
-		thumbheight = thumbWidth + 20
+		thumb_width = 200
+		thumb_height = thumb_width + 20
 		self.setWindowFlags(
 			QtCore.Qt.Widget |
 			 QtCore.Qt.FramelessWindowHint | 
 			 QtCore.Qt.X11BypassWindowManagerHint
 			 )
-		col = self.__sw/thumbWidth 
+		col = self.__sw/thumb_width 
 		self._twoDLst = utils.convertToTwoDList(images, col)
 		self.setGeometry(0, 0, self.__sw, self.__sh)
 		self.showFullScreen()
-		self.setColumnWidth(thumbWidth, thumbheight)
-		self._lm = MyListModel(self._slideShowWin, self._twoDLst, col, (thumbWidth, thumbheight), self)
+		self.setColumnWidth(thumb_width, thumb_height)
+		self._lm = MyListModel(self._slideShowWin, self._twoDLst, col,
+			(thumb_width, thumb_height), self)
 		self.setShowGrid(False)
 		self.setWordWrap(True)
 		self.setModel(self._lm)
@@ -143,6 +160,8 @@ class GalleryUi(QtGui.QTableView):
 		self.selectionModel().selectionChanged.connect(self.selChanged)
 
 	def selChanged(self):
+		"""	Show selected image in gallery in Slidhow window.
+		"""
 		if self._slideShowWin:
 			row = self.selectionModel().currentIndex().row()
 			column = self.selectionModel().currentIndex().column()
@@ -152,14 +171,14 @@ class GalleryUi(QtGui.QTableView):
 
 
 	def animateUpSlideShow(self):
-		""" animate the slideshow window back up
-			to view mode and starts the slideShowBase
-			where it was paused.
+		""" animate the slideshow window back up to view mode
+			and starts the slideShowBase where it was paused.
 		"""
 		self.animateUpGallery()
 		self.animation = QtCore.QPropertyAnimation(self._slideShowWin, "geometry")
-		self.animation.setDuration(self.__animRate);
-		self.animation.setStartValue(QtCore.QRect(0, self.__sh, self.__sw, self.__sh))
+		self.animation.setDuration(self.__animRate)
+		self.animation.setStartValue(QtCore.QRect(0, self.__sh,
+		 self.__sw, self.__sh))
 		self.animation.setEndValue(QtCore.QRect(0, 0, self.__sw, self.__sh))
 		self.animation.start()
 		self._slideShowWin.activateWindow()
@@ -171,9 +190,10 @@ class GalleryUi(QtGui.QTableView):
 		"""	animate the gallery window up to make slideshow visible
 		"""
 		self.animGallery = QtCore.QPropertyAnimation(self, "geometry")
-		self.animGallery.setDuration(self.__animRate);
+		self.animGallery.setDuration(self.__animRate)
 		self.animGallery.setStartValue(QtCore.QRect(0, 0, self.__sw, self.__sh))
-		self.animGallery.setEndValue(QtCore.QRect(0, -(self.__sh), self.__sw, self.__sh))
+		self.animGallery.setEndValue(QtCore.QRect(0, -(self.__sh), 
+			self.__sw, self.__sh))
 		self.animGallery.start()
 
 	def keyPressEvent(self, keyevent):
@@ -198,7 +218,7 @@ def main(imgLst=None):
 	sys.exit(app.exec_())
 	
 if __name__ == '__main__':
-	curntPath = os.getcwd()
+	current_path = os.getcwd()
 	if len(sys.argv) > 1:
-		curntPath = sys.argv[1:]
-	main(utils.ingestData(curntPath))
+		current_path = sys.argv[1:]
+	main(utils.ingestData(current_path))

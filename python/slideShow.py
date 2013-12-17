@@ -83,7 +83,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		if not self._imagesInList:
 			msgBox = QtGui.QMessageBox()
 			msgBox.setText("No Image found." )
-			msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open);
+			msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open)
 			if msgBox.exec_() == msgBox.Open:
 				self.populateImagestoSlideShow(utils._browseDir("Select Directory to SlideShow"))
 			else:
@@ -183,22 +183,33 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				triggered=self.fitToWindow)
 
 	def _buildUi(self):
-		sizePolicy = QtGui.QSizePolicy()
-		sizePolicy.setHorizontalStretch(QtGui.QSizePolicy.Minimum)
 		self.label = QtGui.QLabel()
-		self.overlayExifText = QtGui.QLabel(self.label)
-		self.overlayExifText.setScaledContents(True)
-		self.overlayExifText.setSizePolicy(sizePolicy)
-		self.overlayExifText.setStyleSheet("QLabel { color : blue; }")
-		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
+		self.label.setAlignment(QtCore.Qt.AlignCenter)
 		self.label.setBackgroundRole(QtGui.QPalette.Base)
 		self.label.setSizePolicy(QtGui.QSizePolicy.Ignored,
 			QtGui.QSizePolicy.Ignored)
-		self.label.setAlignment(QtCore.Qt.AlignCenter)
+		sizePolicy = QtGui.QSizePolicy()
+		sizePolicy.setHorizontalStretch(QtGui.QSizePolicy.Minimum)
+		self.overlayExifText = QtGui.QLabel(self.label)
+		self.overlayExifText.setScaledContents(True)
+		self.overlayExifText.setSizePolicy(sizePolicy)
+		self.overlayExifText.setStyleSheet("""
+			QLabel {
+				 color : blue;
+				 background-color: rgba(0,0,0,30%);
+				 border-radius: 6px;
+				 padding: 10px;
+			}
+			""")
+		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
+		layout = QtGui.QVBoxLayout(self.label)
+		layout.setContentsMargins(0, 10, 0, 10)
+		layout.addWidget(self.overlayExifText)
 		self.setCentralWidget(self.label)
 
 	def nextImage(self):
-		"""	 by overloading I don't have to mock showImageByPath
+		"""	method to show next or previous image
+			by overloading I don't have to mock showImageByPath
 		"""
 		super(SlideShowPics, self).nextImage()
 		self.showImageByPath(self._imagesInList[self._count])
