@@ -63,8 +63,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 			row = index.row()
 			column = index.column()
 			try:
-				fileName = os.path.split(self._listdata[row][column])[-1]
-				print fileName
+				fileName = os.path.split(self._listdata[row][column][0])[-1]
 			except IndexError:
 				return
 			return fileName
@@ -73,27 +72,26 @@ class MyListModel(QtCore.QAbstractTableModel):
 			row = index.row()
 			column = index.column()
 			try:
-				fileName = os.path.split(self._listdata[row][column].keys()[0])[-1]
+				fileName = os.path.split(self._listdata[row][column][0])[-1]
 			except IndexError:
 				return
-			exifData = "\n".join(self._listdata[row][column].values()[0])
+			exifData = "\n".join(self._listdata[row][column][1:])
 			return QtCore.QString(exifData if exifData else fileName)
 
 		if role == QtCore.Qt.DecorationRole:
 			row = index.row()
 			column = index.column()
 			try:
-				imageVal = self._listdata[row][column].keys()[0]
+				imageVal = self._listdata[row][column][0]
 			except IndexError:
 				return
 			pixmap = QtGui.QPixmapCache.find(imageVal)
 			if not pixmap:
-				pixmap = QtGui.QPixmap(imageVal)
+				pixmap = QtGui.QPixmap(imageVal).scaled(self._thumbRes[0], self._thumbRes[1], 
+					QtCore.Qt.KeepAspectRatio | QtCore.Qt.SmoothTransformation)
 				QtGui.QPixmapCache.insert(imageVal, pixmap)
 			pixmap = QtGui.QPixmapCache.find(imageVal)
-			# this scaling works
-			return QtGui.QImage(pixmap).scaled(self._thumbRes[0], self._thumbRes[1], 
-				QtCore.Qt.KeepAspectRatio)
+			return QtGui.QImage(pixmap)
 
 	def flags(self, index):
 		"""	This method sets the text in the cell editor selected
@@ -109,12 +107,12 @@ class MyListModel(QtCore.QAbstractTableModel):
 			row = index.row()
 			column = index.column()
 			try:
-				newName = os.path.join(str(os.path.split(self._listdata[row][column])[0]),
+				newName = os.path.join(str(os.path.split(self._listdata[row][column][0])[0]),
 				 str(value.toString()))
 			except IndexError:
 				return
-			utils._renameFile(self._listdata[row][column], newName)
-			self._listdata[row][column] = newName
+			utils._renameFile(self._listdata[row][column][0], newName)
+			self._listdata[row][column][0] = newName
 			self.dataChanged.emit(index, index)
 			return True
 		return False
