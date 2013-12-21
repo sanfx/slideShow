@@ -17,19 +17,15 @@ def isExtensionSupported(filename):
 
 def imageFilePaths(paths):
 	imagesWithPath = []
-	imagePathwithExif = {}
-	newLst = []
+	tempList = []
 	for _path in paths:
 		dirContent = getDirContent(_path)
 		for each in dirContent:
 			selFile = os.path.join(_path, each)
 			if filePathExists(selFile) and isExtensionSupported(selFile):
-				imagePathwithExif.update({selFile:list(getExifData(selFile))})
-				imagesWithPath.append(imagePathwithExif)
-				# reset the dictionary for it to contain only selected image
-				# key in dictionary with exif data as value
-				imagePathwithExif = {}
-				imagesWithPath.append(selFile)
+				tempList = list(getExifData(selFile))
+				tempList.insert(0, selFile)
+				imagesWithPath.append(tempList)
 	return imagesWithPath
 
 def filePathExists(selFile):

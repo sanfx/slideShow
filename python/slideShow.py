@@ -216,13 +216,14 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 
 	def showImageByPath(self, item):
 		if item:
-			image = QtGui.QImage(item.keys()[0])
+			image = QtGui.QImage(item[0])
+
 			pp = QtGui.QPixmap.fromImage(image)
 			self.label.setPixmap(pp.scaled(
 					self.label.size(),
 					QtCore.Qt.KeepAspectRatio,
 					QtCore.Qt.SmoothTransformation))
-			self.overlayExifText.setText("\n".join(item.values()[0]))
+			self.overlayExifText.setText("\n".join(item[1:]))
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
