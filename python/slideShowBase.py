@@ -5,10 +5,11 @@ class SlideShowBase(object):
 		logic for SlideShow to plate forward or backword and 
 		pause.
 	"""
-	def __init__(self, imgLst, ppState, count, animFlag):
+	def __init__(self, imgLst, ppState, count, exifFlag, animFlag):
 		self._imagesInList = imgLst
 		self._pause = ppState
 		self._count = count
+		self.exifFlag = exifFlag 
 		self.animFlag = animFlag
 
 	def populateImagestoSlideShow(self, path):
@@ -16,6 +17,14 @@ class SlideShowBase(object):
 			of images from path argument.
 		"""
 		self._imagesInList = utils.imageFilePaths([path])
+
+	def showExifData(self):
+		if self.exifFlag:
+			self.exifFlag = False
+			return True
+		else:
+			self.exifFlag = True
+			return False
 
 	def nextImage(self):
 		"""	switch to next image or previous image
