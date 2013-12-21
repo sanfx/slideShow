@@ -40,10 +40,10 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 	"""	SlideShowPics class defines the methods for UI and
 		working logic
 	"""
-	def __init__(self, imgLst, num=0, flag=True, parent=None):
+	def __init__(self, imgLst, num=0, exifFlag=False, flag=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
 		self.__animRate = 1200
-		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, animFlag=flag)
+		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, exifFlag=exifFlag, animFlag=flag)
 		self._sw = QtGui.QDesktopWidget().screenGeometry(self).width()
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
 		self.__imgLst = imgLst
@@ -225,6 +225,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 					QtCore.Qt.SmoothTransformation))
 			self.overlayExifText.setText("\n".join(item[1:]))
 
+
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
 			on Escape , Key Right and key left respectively.
@@ -238,6 +239,9 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		if event == QtCore.Qt.Key_Right:
 			self.animFlag = True
 			self.nextImage()
+		if event == QtCore.Qt.Key_E:
+			self.overlayExifText.show() if self.exifFlag  else self.overlayExifText.hide()
+			self.showExifData()
 		if event == 32:
 			self._pause = self.playPause()
 		if event == QtCore.Qt.Key_Up:
