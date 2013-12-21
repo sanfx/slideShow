@@ -42,9 +42,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 	"""
 	def __init__(self, imgLst, num=0, flag=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
-		qtstrImgLst = QtCore.QStringList(imgLst)
 		self.__animRate = 1200
-		slideShowBase.SlideShowBase.__init__(self, imgLst=qtstrImgLst, ppState=False, count=num, animFlag=flag)
+		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, animFlag=flag)
 		self._sw = QtGui.QDesktopWidget().screenGeometry(self).width()
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
 		self.__imgLst = imgLst
@@ -215,15 +214,15 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.showImageByPath(self._imagesInList[self._count])
 		self.setDirection()
 
-	def showImageByPath(self, path):
-		if path:
-			image = QtGui.QImage(path)
+	def showImageByPath(self, item):
+		if item:
+			image = QtGui.QImage(item.keys()[0])
 			pp = QtGui.QPixmap.fromImage(image)
 			self.label.setPixmap(pp.scaled(
 					self.label.size(),
 					QtCore.Qt.KeepAspectRatio,
 					QtCore.Qt.SmoothTransformation))
-			self.overlayExifText.setText("\n".join(list(utils.getExifData((path)))))
+			self.overlayExifText.setText("\n".join(item.values()[0]))
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
@@ -247,8 +246,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			self.animateDownOpen()
 
 	def animateDownOpen(self):
-		from datetime import datetime
-		startTime = datetime.now()
 		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)
 		self.animGallery = QtCore.QPropertyAnimation(self.galleryWin, "geometry")
 		self.animGallery.setDuration(self.__animRate)
@@ -256,9 +253,6 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.animGallery.setEndValue(self.geometry())
 		self.galleryWin.show()
 		self.animGallery.start()
-		print(datetime.now()-startTime)
-
-
 
 	def animateDowSlideShow(self):
 		self.playPause()

@@ -64,6 +64,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 			column = index.column()
 			try:
 				fileName = os.path.split(self._listdata[row][column])[-1]
+				print fileName
 			except IndexError:
 				return
 			return fileName
@@ -72,26 +73,26 @@ class MyListModel(QtCore.QAbstractTableModel):
 			row = index.row()
 			column = index.column()
 			try:
-				fileName = os.path.split(self._listdata[row][column])[-1]
+				fileName = os.path.split(self._listdata[row][column].keys()[0])[-1]
 			except IndexError:
 				return
-			exifData = "\n".join(list(utils.getExifData((self._listdata[row][column]))))
+			exifData = "\n".join(self._listdata[row][column].values()[0])
 			return QtCore.QString(exifData if exifData else fileName)
 
 		if role == QtCore.Qt.DecorationRole:
 			row = index.row()
 			column = index.column()
 			try:
-				value = self._listdata[row][column]
+				imageVal = self._listdata[row][column].keys()[0]
 			except IndexError:
 				return
-			pixmap = QtGui.QPixmapCache.find(value)
+			pixmap = QtGui.QPixmapCache.find(imageVal)
 			if not pixmap:
-				pixmap = QtGui.QPixmap(value)
-				QtGui.QPixmapCache.insert(value, pixmap)
-			pixmap = QtGui.QPixmapCache.find(value)
+				pixmap = QtGui.QPixmap(imageVal)
+				QtGui.QPixmapCache.insert(imageVal, pixmap)
+			pixmap = QtGui.QPixmapCache.find(imageVal)
 			# this scaling works
-			return QtGui.QImage(pixmap).scaled(self._thumbRes[0], self._thumbRes[1],
+			return QtGui.QImage(pixmap).scaled(self._thumbRes[0], self._thumbRes[1], 
 				QtCore.Qt.KeepAspectRatio)
 
 	def flags(self, index):

@@ -8,8 +8,6 @@ class InvalidArgmentException(Exception):
 	pass
 
 
-		
-
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
 	"""
@@ -19,13 +17,20 @@ def isExtensionSupported(filename):
 
 def imageFilePaths(paths):
 	imagesWithPath = []
+	imagePathwithExif = {}
+	newLst = []
 	for _path in paths:
 		dirContent = getDirContent(_path)
 		for each in dirContent:
 			selFile = os.path.join(_path, each)
 			if filePathExists(selFile) and isExtensionSupported(selFile):
+				imagePathwithExif.update({selFile:list(getExifData(selFile))})
+				imagesWithPath.append(imagePathwithExif)
+				# reset the dictionary for it to contain only selected image
+				# key in dictionary with exif data as value
+				imagePathwithExif = {}
 				imagesWithPath.append(selFile)
-	return list(set(imagesWithPath))
+	return imagesWithPath
 
 def filePathExists(selFile):
 	return os.path.isfile(selFile)
