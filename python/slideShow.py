@@ -247,6 +247,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			self.animateDownOpen()
 
 	def animateDownOpen(self):
+		from datetime import datetime
+		startTime = datetime.now()
 		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)
 		self.animGallery = QtCore.QPropertyAnimation(self.galleryWin, "geometry")
 		self.animGallery.setDuration(self.__animRate)
@@ -254,6 +256,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.animGallery.setEndValue(self.geometry())
 		self.galleryWin.show()
 		self.animGallery.start()
+		print(datetime.now()-startTime)
+
 
 
 	def animateDowSlideShow(self):
