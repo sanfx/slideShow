@@ -1,7 +1,7 @@
 import os
 import sys
 import exifread
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 
 
 class InvalidArgmentException(Exception):
@@ -75,13 +75,6 @@ def _browseDir(label):
 	else:
 		# user cancelled it!
 		sys.exit()
-
-def generatePixmap(value):
-	"""	generates a pixmap if already not incache
-	"""
-	pixmap=QtGui.QPixmap()
-	pixmap.load(value)
-	return pixmap
 
 def ingestData(paths):
 	"""	This method is used to create a list containing

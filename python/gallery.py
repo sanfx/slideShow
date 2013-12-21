@@ -13,6 +13,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 				thumbRes(tuple): resolution of the thumbnail
 		"""
 		QtCore.QAbstractListModel.__init__(self, parent)
+		QtGui.QPixmapCache.setCacheLimit(100 * 1024)
 		self._slideShowWin = window
 		self._thumbRes = thumbRes
 		self._listdata = datain
@@ -37,8 +38,8 @@ class MyListModel(QtCore.QAbstractTableModel):
 		return None
 
 	def rowCount(self, parent=QtCore.QModelIndex()):
-	 	"""	Method sets the number of rows
-	 	"""
+		"""	Method sets the number of rows
+		"""
 		return len(self._listdata)
 
 	def columnCount(self, parent):
@@ -56,7 +57,7 @@ class MyListModel(QtCore.QAbstractTableModel):
 			return  QtCore.QSize(*self._thumbRes)
 
 		if role == QtCore.Qt.TextAlignmentRole:
-		 	return QtCore.Qt.AlignCenter
+			return QtCore.Qt.AlignCenter
 
 		if role == QtCore.Qt.EditRole:
 			row = index.row()
@@ -84,14 +85,12 @@ class MyListModel(QtCore.QAbstractTableModel):
 				value = self._listdata[row][column]
 			except IndexError:
 				return
-
-			pixmap = None
-			# value is image path as key
-			if not self.pixmap_cache.has_key(value):
-				pixmap = utils.generatePixmap(value)
-				self.pixmap_cache[value] = pixmap
-			else:
-				pixmap = self.pixmap_cache[value]
+			pixmap = QtGui.QPixmapCache.find(value)
+			if not pixmap:
+				pixmap = QtGui.QPixmap(value)
+				QtGui.QPixmapCache.insert(value, pixmap)
+			pixmap = QtGui.QPixmapCache.find(value)
+			# this scaling works
 			return QtGui.QImage(pixmap).scaled(self._thumbRes[0], self._thumbRes[1],
 				QtCore.Qt.KeepAspectRatio)
 
