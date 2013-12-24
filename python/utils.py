@@ -8,28 +8,28 @@ class InvalidArgmentException(Exception):
 	pass
 
 
+ALLOWABLE = frozenset(str(f) for f in QtGui.QImageReader.supportedImageFormats())
+
 def isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
+		Args:
+			filename(str): file path with extensions
 	"""
-	reader = QtGui.QImageReader()
-	ALLOWABLE = [str(each) for each in reader.supportedImageFormats()]
-	return filename.lower()[-3:] in ALLOWABLE
+	return os.path.splitext(filename)[-1].split('.')[-1].lower() in ALLOWABLE
 
 def imageFilePaths(paths):
 	imagesWithPath = []
 	tempList = []
+
 	for _path in paths:
 		dirContent = getDirContent(_path)
 		for each in dirContent:
 			selFile = os.path.join(_path, each)
-			if filePathExists(selFile) and isExtensionSupported(selFile):
-				tempList = list(getExifData(selFile))
+			if os.path.exists(selFile) and isExtensionSupported(selFile):
+				tempList = getExifData(selFile)
 				tempList.insert(0, selFile)
 				imagesWithPath.append(tempList)
 	return imagesWithPath
-
-def filePathExists(selFile):
-	return os.path.isfile(selFile)
 
 def getDirContent(path):
 	try:
@@ -40,13 +40,19 @@ def getDirContent(path):
 def getExifData(filePath):
 	"""	Gets exif data from image
 	"""
+	bad_tags = ('EXIF Tag 0x9009', 'MakerNote Tag 0x0099',
+				'EXIF UserComment')
 	try:
 		with open(filePath, 'rb') as f:
-			return ("%s: %s" % (tag, data)
-                    for tag, data in exifread.process_file(f).iteritems()
-                    if tag not in ('EXIF Tag 0x9009',
-                    	'MakerNote Tag 0x0099',
-                    	'EXIF UserComment'))
+			return ["%s: %s" % (tag, data) 
+        for tag, data in exifread.process_file(f).iteritems() 
+        if tag not in bad_tags]
+
+			# ("%s: %s" % (tag, data)
+   #                  for tag, data in exifread.process_file(f).iteritems()
+   #                  if tag not in ('EXIF Tag 0x9009',
+   #                  	'MakerNote Tag 0x0099',
+   #                  	'EXIF UserComment'))
 	except OSError:
 		return
 	
