@@ -39,8 +39,8 @@ class TestUtils(unittest.TestCase):
 	def test_imageFilePaths(self):
 		filePaths = self._filePaths
 		fileList = ['file1.bmp']
-		self.mox.StubOutWithMock(utils, 'getDirContent')
-		dirContent = utils.getDirContent(filePaths[0]).AndReturn(fileList)
+		self.mox.StubOutWithMock(os, 'listdir')
+		dirContent = os.listdir(filePaths[0]).AndReturn(fileList)
 		self.mox.StubOutWithMock(os.path,'exists')
 		filePat = os.path.join(filePaths[0], dirContent[0])
 		os.path.exists(filePat).AndReturn(True)
