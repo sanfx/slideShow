@@ -22,7 +22,7 @@ def imageFilePaths(paths):
 	tempList = []
 
 	for _path in paths:
-		dirContent = getDirContent(_path)
+		dirContent = os.listdir(_path)
 		for each in dirContent:
 			selFile = os.path.join(_path, each)
 			if os.path.exists(selFile) and isExtensionSupported(selFile):
@@ -30,12 +30,6 @@ def imageFilePaths(paths):
 				tempList.insert(0, selFile)
 				imagesWithPath.append(tempList)
 	return imagesWithPath
-
-def getDirContent(path):
-	try:
-		return os.listdir(path)
-	except OSError:
-		raise OSError("Provided path '%s' doesn't exists." % path)
 
 def getExifData(filePath):
 	"""	Gets exif data from image
@@ -47,12 +41,6 @@ def getExifData(filePath):
 			return ["%s: %s" % (tag, data) 
         for tag, data in exifread.process_file(f).iteritems() 
         if tag not in bad_tags]
-
-			# ("%s: %s" % (tag, data)
-   #                  for tag, data in exifread.process_file(f).iteritems()
-   #                  if tag not in ('EXIF Tag 0x9009',
-   #                  	'MakerNote Tag 0x0099',
-   #                  	'EXIF UserComment'))
 	except OSError:
 		return
 	
@@ -67,8 +55,10 @@ def _renameFile(fileToRename, newName):
 	"""
 	try:
 		os.rename(str(fileToRename), newName)
-	except Exception, err:
-		print err
+	except OSError as err:
+		msgBox = QtGui.QMessageBox()
+		msgBox.setText("Unable to rename file.\n Error: %s" % err)
+		msgBox.exec_()
 
 def _browseDir(label):
 	"""	method to browse path you want to
