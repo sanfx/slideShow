@@ -17,7 +17,6 @@ class MyListModel(QtCore.QAbstractTableModel):
 		self._slideShowWin = window
 		self._thumbRes = thumbRes
 		self._listdata = datain
-		self.pixmap_cache = {}
 		self._col = col
 
 	def colData(self, section, orientation, role):
@@ -148,11 +147,11 @@ class GalleryUi(QtGui.QTableView):
 		self.setGeometry(0, 0, self.__sw, self.__sh)
 		self.showFullScreen()
 		self.setColumnWidth(thumb_width, thumb_height)
-		self._lm = MyListModel(self._slideShowWin, self._twoDLst, col,
+		lm = MyListModel(self._slideShowWin, self._twoDLst, col,
 			(thumb_width, thumb_height), self)
 		self.setShowGrid(False)
 		self.setWordWrap(True)
-		self.setModel(self._lm)
+		self.setModel(lm)
 		self.resizeColumnsToContents()
 		self.resizeRowsToContents()
 		self.selectionModel().selectionChanged.connect(self.selChanged)

@@ -48,6 +48,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
 		self.__imgLst = imgLst
 		self.prepairWindow()
+		# hides the exif data of image by default
+		self.overlayExifText.hide()
 
 	def print_(self):
 		dialog = QtGui.QPrintDialog(self.printer, self)
@@ -211,7 +213,11 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			by overloading I don't have to mock showImageByPath
 		"""
 		super(SlideShowPics, self).nextImage()
-		self.showImageByPath(self._imagesInList[self._count])
+		try:
+			self.showImageByPath(self._imagesInList[self._count])
+		except:
+			self._count = len(self._imagesInList)
+		# sets the direction
 		self.setDirection()
 
 	def showImageByPath(self, item):
@@ -223,7 +229,10 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 					self.label.size(),
 					QtCore.Qt.KeepAspectRatio,
 					QtCore.Qt.SmoothTransformation))
-			self.overlayExifText.setText("\n".join(item[1:]))
+			exif = "\n".join(item[1:])
+			if not item[1:]:
+				exif = "No Exif Data Available"
+			self.overlayExifText.setText(exif)
 
 
 	def keyPressEvent(self, keyevent):
