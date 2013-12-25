@@ -13,6 +13,8 @@ and launch the python -o slideShow.py
 The slideshow autostarts (Keyboard Shortcuts):
 * Spacebar to toggle pause/play
 
+* press e to show/hide exif data
+
 * Left key to see previous image
 
 * Right key to see next image
@@ -25,9 +27,8 @@ The slideshow autostarts (Keyboard Shortcuts):
 
 TODO:
 ====
-* press e to show/hide exif data
 
-* Multithreaded approach for launcing Gallery
+* On Screen buttons
 
 Known Issues:
 ============

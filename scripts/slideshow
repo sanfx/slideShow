@@ -9,9 +9,9 @@ import sys
 MODULES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "python")
 sys.path.insert(0, MODULES_PATH)
 
-
+import utils
 import slideShow
-slideShow.main(os.getcwd())
+slideShow.main(utils.ingestData(os.getcwd()))
 
 
 		
