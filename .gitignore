@@ -1,3 +1,4 @@
-*.pyc
-*coverage
 *.pyo
+*coverage
+*.pyc
+slideShow.sublime-project
