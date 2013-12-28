@@ -1,4 +1,5 @@
 *.pyo
 *coverage
 *.pyc
-slideShow.sublime-project
+*.sublime-workspace
+*.sublime-project

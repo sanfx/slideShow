@@ -520,10 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "python/slideShow.py",
+			"file": "python/gallery.py",
 			"settings":
 			{
-				"buffer_size": 9688,
+				"buffer_size": 6827,
 				"line_ending": "Unix"
 			}
 		}
@@ -534,6 +534,18 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"Git: S",
+				"Git: Status"
+			],
+			[
+				"Git",
+				"Git: Commit…"
+			],
+			[
+				"Git:S",
+				"Git: Status"
+			],
 			[
 				"ins",
 				"Package Control: Install Package"
@@ -897,19 +909,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "python/slideShow.py",
+					"file": "python/gallery.py",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 9688,
+						"buffer_size": 6827,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8006,
-								8009
+								0,
+								0
 							]
 						],
 						"settings":
@@ -918,7 +930,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3275.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
