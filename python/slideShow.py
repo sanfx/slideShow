@@ -88,7 +88,14 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.updateActions()
 
 	def __changeSlideShow(self):
-		self.populateImagestoSlideShow(utils._browseDir("Select Directory to SlideShow"))
+		curntPaths = utils._browseDir("Select Directory to SlideShow")
+		self.populateImagestoSlideShow(curntPaths)
+		# always set to go forward when new path is set
+		self._forwardPlay()
+		if hasattr(self, 'galleryWin'):
+			self.galleryWin.close()
+		# updating the imgLst will update the gallery as well.
+		self.__imgLst = utils.ingestData([curntPaths])
 
 	def prepairWindow(self):
 		if not self._imagesInList:

@@ -18,18 +18,19 @@ def isExtensionSupported(filename):
 	return os.path.splitext(filename)[-1].split('.')[-1].lower() in ALLOWABLE
 
 def imageFilePaths(paths):
-	imagesWithPath = []
-	tempList = []
+	if all(paths):
+		imagesWithPath = []
+		tempList = []
 
-	for _path in paths:
-		dirContent = os.listdir(_path)
-		for each in dirContent:
-			selFile = os.path.join(_path, each)
-			if os.path.exists(selFile) and isExtensionSupported(selFile):
-				tempList = getExifData(selFile)
-				tempList.insert(0, selFile)
-				imagesWithPath.append(tempList)
-	return imagesWithPath
+		for _path in paths:
+			dirContent = os.listdir(_path)
+			for each in dirContent:
+				selFile = os.path.join(_path, each)
+				if os.path.exists(selFile) and isExtensionSupported(selFile):
+					tempList = getExifData(selFile)
+					tempList.insert(0, selFile)
+					imagesWithPath.append(tempList)
+		return imagesWithPath
 
 def getExifData(filePath):
 	"""	Gets exif data from image
@@ -70,8 +71,11 @@ def _browseDir(label):
 	if selectedDir:
 		return selectedDir
 	else:
-		# user cancelled it!
-		sys.exit()
+		msgRetVal = QtGui.QMessageBox.question(None, "SlideShow Viewer",
+						"Do you want to quit ?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+		if msgRetVal == 16384:
+			# user cancelled it!
+			sys.exit()
 
 def ingestData(paths):
 	"""	This method is used to create a list containing
