@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"msg",
+				"msgRetVal"
+			],
+			[
+				"galle",
+				"galleryWin"
+			],
+			[
+				"gal",
+				"galleryWin"
+			],
+			[
 				"e",
 				"exec_"
 			],
@@ -150,10 +162,6 @@
 			[
 				"anim",
 				"animateUpSlideShow"
-			],
-			[
-				"gal",
-				"galleryWin"
 			],
 			[
 				"im",
@@ -506,24 +514,40 @@
 			[
 				"Filter",
 				"filterMethods"
-			],
-			[
-				"key",
-				"keyevent"
-			],
-			[
-				"pop",
-				"_populateMethodsList"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "python/controlBar.py",
+			"settings":
+			{
+				"buffer_size": 2830,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/slideShow.py",
+			"settings":
+			{
+				"buffer_size": 10633,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/utils.py",
+			"settings":
+			{
+				"buffer_size": 2281,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "python/gallery.py",
 			"settings":
 			{
-				"buffer_size": 6827,
+				"buffer_size": 6906,
 				"line_ending": "Unix"
 			}
 		}
@@ -531,12 +555,16 @@
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 280.0,
 		"selected_items":
 		[
 			[
 				"Git: S",
 				"Git: Status"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
 			],
 			[
 				"Git",
@@ -545,10 +573,6 @@
 			[
 				"Git:S",
 				"Git: Status"
-			],
-			[
-				"ins",
-				"Package Control: Install Package"
 			],
 			[
 				"Ins",
@@ -610,6 +634,12 @@
 	},
 	"file_history":
 	[
+		"/Users/sanjeevkumar/Development/python/slideShow/README.md",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/utils.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/python/icons.py",
+		"/Users/sanjeevkumar/Development/custom/animateWindow.py",
+		"/Users/sanjeevkumar/Development/custom/slide_animation.py",
+		"/Users/sanjeevkumar/Development/python/slideShow/.gitignore",
 		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
 		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
 		"/Users/sanjeevkumar/Development/python/slideShow/.git/rebase-merge/git-rebase-todo",
@@ -632,7 +662,6 @@
 		"/Users/sanjeevkumar/Development/python/slideShow/python/threading.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/python/gallery.py",
 		"/Users/sanjeevkumar/Development/custom/overlay1.py",
-		"/Users/sanjeevkumar/Development/python/slideShow/python/utils.py",
 		"/Users/sanjeevkumar/Development/custom/exifData.py",
 		"/Users/sanjeevkumar/Development/python/exif-py/EXIF.py",
 		"/Users/sanjeevkumar/Development/custom/animateFullScreen.py",
@@ -641,10 +670,8 @@
 		"/Users/sanjeevkumar/Development/custom/tableWidgetHover.py",
 		"/Users/sanjeevkumar/Development/custom/tableWidgetExample.py",
 		"/Users/sanjeevkumar/Development/custom/conlst2d.py",
-		"/Users/sanjeevkumar/Development/custom/animateWindow.py",
 		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/TermFrame.py",
 		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/SerialTerminal.py",
-		"/Users/sanjeevkumar/Development/custom/slide_animation.py",
 		"/Users/sanjeevkumar/Development/python/custom/itertool_product.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/tests/test_slideshow.py",
 		"/Users/sanjeevkumar/Development/python/Qdock.py",
@@ -747,6 +774,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"populateImagestoSlideShow",
+			"__imgLst",
+			"_slideShowWin",
+			"nextImage()",
+			"populateImagestoSlideShow",
+			"closeMe",
+			"Select",
+			"prepairWindow",
+			"closeMe",
 			"pick",
 			"paintEvent",
 			"ToolTipText",
@@ -865,16 +901,7 @@
 			"key",
 			"generatePixmap",
 			"event",
-			"pixmap",
-			"header",
-			"_listdata",
-			"MyListView",
-			"outputList",
-			"listdata",
-			"renameFile",
-			"->",
-			"RectWidget",
-			"arg"
+			"pixmap"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -904,24 +931,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "python/gallery.py",
-					"semi_transient": true,
+					"file": "python/controlBar.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6827,
+						"buffer_size": 2830,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								840,
+								840
 							]
 						],
 						"settings":
@@ -931,6 +958,90 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "python/slideShow.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10633,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3829,
+								3829
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4789.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "python/utils.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2281,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1847,
+								1847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1075.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "python/gallery.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4562,
+								4466
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2457.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -971,7 +1082,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 295.0
+		"height": 319.0
 	},
 	"project": "slideShow.sublime-project",
 	"replace":
@@ -1010,7 +1121,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 146.0,
+	"side_bar_width": 194.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
