@@ -1,9 +1,19 @@
 slideShow
 =========
 
-PyQt4 based imageSlideshow with ImageGallery
+PyQt4 based imageSlideshow with ImageGallery [with exif data]
 
 add alias for quickacces from terminal: alias show='python ~/Development/python/slideShow/python/slideShow.py'
+Requirements:
+============
+Python 2.7 
+
+PyQt4
+
+Dependencies:
+============ 
+
+ExifRead
 
 Usage:
 =====
@@ -25,13 +35,11 @@ The slideshow autostarts (Keyboard Shortcuts):
 
 * Escape to exit
 
-TODO:
-====
+or you can use control bar to navigate or change slideshow directory: 
 
-* Multithreaded approach for launcing Gallery
+![](https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-ash3/1521566_10202708210403365_1852678861_n.jpg)
 
-Known Issues:
-============
-if you have opened gallery by pressing down arrow and came back to slideshow the exiting wont work properly in that case you have press exit agian
+
+Please report bug/ or suggestions!!!
 
 
