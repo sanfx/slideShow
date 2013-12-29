@@ -173,6 +173,7 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		self.animateUpGallery()
 		self.animation = QtCore.QPropertyAnimation(self._slideShowWin, "geometry")
+		self._slideShowWin.bar.show()
 		self.animation.setDuration(self.__animRate)
 		self.animation.setStartValue(QtCore.QRect(0, self.__sh,
 		 self.__sw, self.__sh))
@@ -199,8 +200,9 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
-			if self._slideShowWin:
+			if hasattr(self, '_slideShowWin'):
 				self._slideShowWin.close()
+				self._slideShowWin.bar.close()
 			self.close()
 		if event == QtCore.Qt.Key_Up:
 			if self._slideShowWin:

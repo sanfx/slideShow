@@ -30,6 +30,7 @@
 import sys
 import os
 import utils
+from controlBar import ControlBar as _ControlBar
 from PyQt4 import QtGui, QtCore
 import slideShowBase
 import gallery
@@ -43,6 +44,12 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 	def __init__(self, imgLst, num=0, exifFlag=False, flag=True, parent=None):
 		super(SlideShowPics, self).__init__(parent)
 		self.__animRate = 1200
+		self.bar = _ControlBar()
+		self.bar.backBtn.clicked.connect(self._backwardPlay)
+		self.bar.nextBtn.clicked.connect(self._forwardPlay)
+		self.bar.pausBtn.clicked.connect(self.playPause)
+		self.bar.galrBtn.clicked.connect(self._openGallery)
+		self.bar.openBtn.clicked.connect(self.__changeSlideShow)
 		slideShowBase.SlideShowBase.__init__(self, imgLst=imgLst, ppState=False, count=num, exifFlag=exifFlag, animFlag=flag)
 		self._sw = QtGui.QDesktopWidget().screenGeometry(self).width()
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
@@ -80,30 +87,41 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 
 		self.updateActions()
 
+	def __changeSlideShow(self):
+		curntPaths = utils._browseDir("Select Directory to SlideShow")
+		self.populateImagestoSlideShow(curntPaths)
+		# always set to go forward when new path is set
+		self._forwardPlay()
+		if hasattr(self, 'galleryWin'):
+			self.galleryWin.close()
+		# updating the imgLst will update the gallery as well.
+		self.__imgLst = utils.ingestData([curntPaths])
+
 	def prepairWindow(self):
 		if not self._imagesInList:
 			msgBox = QtGui.QMessageBox()
 			msgBox.setText("No Image found." )
 			msgBox.setStandardButtons(msgBox.Cancel | msgBox.Open)
 			if msgBox.exec_() == msgBox.Open:
-				self.populateImagestoSlideShow(utils._browseDir("Select Directory to SlideShow"))
+				self.__changeSlideShow()
 			else:
 				sys.exit()
+		self.bar.show()
 		# Centre UI
 		screen = QtGui.QDesktopWidget().screenGeometry(self)
 		size = self.geometry()
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 		self.setStyleSheet("""
 			QWidget{
-			background-color: #000000;
+				background-color: #000000;
 			}
 			QMenu { 
-			font-size:12px;  
-			color:white;  
-			background-color:qlineargradient(x1:0, y1:0, x1:0, y2:1, stop: 0 #cccccc, stop: 1 #333333);
+				font-size:12px;  
+				color:white;  
+				background-color:qlineargradient(x1:0, y1:0, x1:0, y2:1, stop: 0 #cccccc, stop: 1 #333333);
 			}
 			""")
-		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		# self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 		self._buildUi()
 		self.createActions()
 		self.updateTimer = QtCore.QTimer()
@@ -200,8 +218,8 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 				 background-color: rgba(0,0,0,30%);
 				 border-radius: 6px;
 				 padding: 10px;
-			}
-			""")
+					}
+							""")
 		self.overlayExifText.setAlignment(QtCore.Qt.AlignTop)
 		layout = QtGui.QVBoxLayout(self.label)
 		layout.setContentsMargins(0, 10, 0, 10)
@@ -237,17 +255,18 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 
 	def keyPressEvent(self, keyevent):
 		"""	Capture key to exit, next image, previous image,
-			on Escape , Key Right and key left respectively.
+			on Escape, Key Right and key left respectively.
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
 			self.close()
+			self.bar.close()
+			if hasattr(self, 'galleryWin'):
+				self.galleryWin.close()
 		if event == QtCore.Qt.Key_Left:
-			self.animFlag = False
-			self.nextImage()
+			self._backwardPlay()
 		if event == QtCore.Qt.Key_Right:
-			self.animFlag = True
-			self.nextImage()
+			self._forwardPlay()
 		if event == QtCore.Qt.Key_E:
 			self.overlayExifText.show() if self.exifFlag  else self.overlayExifText.hide()
 			self.showExifData()
@@ -256,8 +275,19 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		if event == QtCore.Qt.Key_Up:
 			print "pressed up key"
 		if event == QtCore.Qt.Key_Down:
-			self.animateDowSlideShow()
-			self.animateDownOpen()
+			self._openGallery()
+
+	def _openGallery(self):
+		self.animateDowSlideShow()
+		self.animateDownOpen()
+
+	def _backwardPlay(self):
+		self.animFlag = False
+		self.nextImage()
+
+	def _forwardPlay(self):
+		self.animFlag = True
+		self.nextImage()
 
 	def animateDownOpen(self):
 		self.galleryWin = gallery.GalleryUi(self, self.__imgLst)
@@ -275,6 +305,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self.animation.setStartValue(self.geometry())
 		self.animation.setEndValue(QtCore.QRect(0, self._sh, self._sw, self._sh))
 		self.animation.start()
+		self.bar.hide()
 
 def main(imgLst=None):
 	app = QtGui.QApplication(sys.argv)
