@@ -1,6 +1,6 @@
 #! /System/Library/Frameworks/Python.framework/Versions/2.7/bin/python
 # -*-coding: utf8-*-
-# file: slideShow
+# file: gallery
 
 
 import os
@@ -13,8 +13,10 @@ MODULES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__f
 sys.path.insert(0, MODULES_PATH)
 
 import utils
-import slideShow
+import gallery
 path = sys.argv[-1]
+print "List: %s\n" % sys.argv
+print "Viewing Gallery of Path: %s\n" % path
 
 if os.path.isdir(path):
 	# pick the argumet passed
@@ -22,8 +24,9 @@ if os.path.isdir(path):
 else:
 	# pick the current working directory
 	execPath = os.getcwd()
+	print "Current Working Dir %s\n" % execPath
 
-slideShow.main(utils.ingestData(execPath))
+gallery.main(utils.ingestData(execPath))
 
 
 		

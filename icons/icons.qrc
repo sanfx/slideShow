@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="images">
+    <file>exitBtnIcon.png</file>
+    <file>openBtnIcon.png</file>
+    <file>slideShowBtnIcon.png</file>
+    <file>slideshowGalleryIcon.jpg</file>
     <file>galryIcon.png</file>
   </qresource>
 </RCC>

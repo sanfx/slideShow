@@ -2,8 +2,7 @@ import os
 import sys
 import exifread
 from PyQt4 import QtGui, QtCore
-
-
+print QtGui.__file__
 class InvalidArgmentException(Exception):
 	pass
 
