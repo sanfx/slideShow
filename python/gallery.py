@@ -2,7 +2,6 @@ import sys
 import os
 import utils
 from PyQt4 import QtGui, QtCore
-
 import icons
 import controlBar
 
@@ -17,7 +16,6 @@ class MyDataModel(QtCore.QAbstractTableModel):
 		"""
 		QtCore.QAbstractListModel.__init__(self, parent)
 		QtGui.QPixmapCache.setCacheLimit(100 * 1024)
-		# self._slideShowWin = window
 		self._thumbRes = thumbRes
 		self._listdata = datain
 		self._col = col
@@ -132,36 +130,7 @@ class GalleryUi(QtGui.QTableView):
 		self._imagesPathLst = imagesPathLst
 		self._thumb_width = 200
 		self._thumb_height = self._thumb_width + 20
-		self.setUpWindow(imagesPathLst)
-
-	def setUpWindow(self, images=None):
-		"""	method to setup window frameless and fullscreen,
-			setting up thumbnaul size and animation rate
-		"""
-		if not images:
-			path = utils._browseDir("Select the directory that contains images")
-			images = utils.ingestData(path)
-		thumb_width = 200
-		thumb_height = thumb_width + 20
-		self.setWindowFlags(
-			QtCore.Qt.Widget |
-			 QtCore.Qt.FramelessWindowHint | 
-			 QtCore.Qt.X11BypassWindowManagerHint
-			 )
-		col = self.__sw/thumb_width 
-		self._twoDLst = utils.convertToTwoDList(images, col)
-		self.setGeometry(0, 0, self.__sw, self.__sh)
-		self.showFullScreen()
-		self.setColumnWidth(thumb_width, thumb_height)
-		lm = MyDataModel(self._slideShowWin, self._twoDLst, col,
-			(thumb_width, thumb_height), self)
-		self.setShowGrid(False)
-		self.setWordWrap(True)
-		self.setModel(lm)
-		self._imagesPathLst = imagesPathLst
-		self._thumb_width = 200
-		self._thumb_height = self._thumb_width + 20
-		# self.setUpWindow(initiate=True)
+		self.setUpWindow(initiate=True)
 		self._startControlBar()
 
 		self._connections()
@@ -240,6 +209,7 @@ class GalleryUi(QtGui.QTableView):
 		"""	Method to setup window frameless and fullscreen,
 			setting up thumbnaul size and animation rate
 		"""
+
 		if not self._imagesPathLst:
 			self.selectSetNewPath()
 		# sets model once at startup when window is being drawn!
@@ -284,19 +254,6 @@ class GalleryUi(QtGui.QTableView):
 		""" animate the slideshow window back up to view mode
 			and starts the slideShowBase where it was paused.
 		"""
-
-		self.animateUpGallery()
-		self.animation = QtCore.QPropertyAnimation(self._slideShowWin, "geometry")
-		self._slideShowWin.bar.show()
-		self.animation.setDuration(self.__animRate)
-		self.animation.setStartValue(QtCore.QRect(0, self.__sh,
-		 self.__sw, self.__sh))
-		self.animation.setEndValue(QtCore.QRect(0, 0, self.__sw, self.__sh))
-		self.animation.start()
-		self._slideShowWin.activateWindow()
-		self._slideShowWin.raise_()
-		self._slideShowWin.playPause()
-
 		if self._slideShowWin:
 			self.animateUpGallery()
 			self.animation = QtCore.QPropertyAnimation(self._slideShowWin, "geometry")
@@ -327,10 +284,7 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		event = keyevent.key()
 		if event == QtCore.Qt.Key_Escape:
-			if hasattr(self, '_slideShowWin'):
-				self._slideShowWin.close()
-				self._slideShowWin.bar.close()
-			self.close()
+			self._exitGallery()
 		if event == QtCore.Qt.Key_Up:
 			self._animateUpOpen()
 
@@ -346,7 +300,7 @@ class GalleryUi(QtGui.QTableView):
 		"""
 		if not pressed:
 			self._animateUpOpen()
-
+		
 def main(imgLst=None):
 	"""	method to start gallery standalone
 	"""
