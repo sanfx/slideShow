@@ -15,7 +15,7 @@ sys.path.insert(0, MODULES_PATH)
 import utils
 import gallery
 path = sys.argv[-1]
-print "List: %s\n" % sys.argv
+
 print "Viewing Gallery of Path: %s\n" % path
 
 if os.path.isdir(path):
