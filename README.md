@@ -3,12 +3,9 @@ slideShow
 
 PyQt4 based imageSlideshow with ImageGallery [with exif data]
 
-<<<<<<< HEAD
-add alias for quick access: alias show='python ~/Development/python/slideShow/python/slideShow.py'
 
-=======
 add alias for quickacces from terminal: alias show='python ~/Development/python/slideShow/python/slideShow.py'
->>>>>>> codeReview
+
 Requirements:
 ============
 Python 2.7 
