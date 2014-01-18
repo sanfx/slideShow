@@ -24,13 +24,21 @@ class TestSlideShow(unittest.TestCase):
 
 	def test_nextImage(self):
 		self.show = _slideShowBase(imgLst=self.imgLst, ppState=False, count=0, animFlag=True)
+<<<<<<< HEAD
 		self.show.setDirection()
+=======
+		self.show.nextImage()
+>>>>>>> codeReview
 		self.assertEquals(1, self.show._count)
 		self.assertEquals(self.imgLst[1], self.show._imagesInList[1])
 
 	def test_nextImage_animFlag_False(self):
 		self.show = _slideShowBase(imgLst=self.imgLst, ppState=False, count=2, animFlag=False)
+<<<<<<< HEAD
 		self.show.setDirection()		
+=======
+		self.show.nextImage()		
+>>>>>>> codeReview
 		self.assertEquals(1, self.show._count)
 		self.assertEquals(self.imgLst[2], self.show._imagesInList[2])
 

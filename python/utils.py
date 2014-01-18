@@ -40,8 +40,9 @@ def getExifData(filePath):
 	try:
 		with open(filePath, 'rb') as f:
 			return ["%s: %s" % (tag, data) 
-        for tag, data in exifread.process_file(f).iteritems() 
-        if tag not in bad_tags]
+
+		for tag, data in exifread.process_file(f).iteritems() 
+		if tag not in bad_tags]
 	except OSError:
 		return
 	
@@ -76,6 +77,14 @@ def _browseDir(label):
 		if msgRetVal == 16384:
 			# user cancelled it!
 			sys.exit()
+
+def deleteFile(path):
+	if os.path.exists(path):
+            os.system('osascript -e \'tell app "Finder" '
+                      + 'to move the POSIX file "'
+                      + os.path.abspath(path) + '" to trash\'')
+        else:
+            print "Error:", os.path.abspath(path), "does not exist"
 
 def ingestData(paths):
 	"""	This method is used to create a list containing

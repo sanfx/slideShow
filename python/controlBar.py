@@ -2,7 +2,6 @@ from PyQt4 import QtGui, QtCore
 import sys
 import icons
 
-
 class ControlBar(QtGui.QWidget):
 	"""	docstring for ControlBar"""
 	def __init__(self, parent=None):
@@ -45,7 +44,8 @@ class ControlBar(QtGui.QWidget):
 	def buildUi(self):
 		self.hoelayout = QtGui.QHBoxLayout()
 		self.openBtn = RoundEdgeButton()
-		self.openBtn.setIcon(self.style().standardIcon(QtGui.QStyle.SP_DirOpenIcon))
+
+		self.openBtn.setIcon(QtGui.QIcon(':/images/openBtnIcon.png'))
 		self.backBtn = RoundEdgeButton()
 		self.backBtn.setIcon(self.style().standardIcon(QtGui.QStyle.SP_MediaSeekBackward))
 		self.pausBtn = RoundEdgeButton()
@@ -53,7 +53,16 @@ class ControlBar(QtGui.QWidget):
 		self.nextBtn = RoundEdgeButton()
 		self.nextBtn.setIcon(self.style().standardIcon(QtGui.QStyle.SP_MediaSeekForward))
 		self.galrBtn = RoundEdgeButton()
+
 		self.galrBtn.setIcon(QtGui.QIcon(':/images/galryIcon.png'))
+
+		self.galrBtn.setCheckable(True)
+		self.galrBtn.setIcon(QtGui.QIcon(':/images/galryIcon.png'))
+		self.exitBtn = RoundEdgeButton()
+		self.exitBtn.setIcon(QtGui.QIcon(':/images/exitBtnIcon.png'))
+		self.imgSizeSldr = QtGui.QSlider()
+		self.imgSizeSldr.hide()
+		self.imgSizeSldr.setOrientation(QtCore.Qt.Horizontal)
 
 		self.hoelayout.addStretch(1)
 		self.hoelayout.addWidget(self.openBtn)
@@ -62,17 +71,29 @@ class ControlBar(QtGui.QWidget):
 		self.hoelayout.addStretch(1)
 		self.hoelayout.addWidget(self.pausBtn)
 		self.hoelayout.addStretch(1)
+
+		self.hoelayout.addWidget(self.imgSizeSldr)
+		self.hoelayout.addStretch(1)
+
 		self.hoelayout.addWidget(self.nextBtn)
 		self.hoelayout.addStretch(1)
 		self.hoelayout.addWidget(self.galrBtn)
 		self.hoelayout.addStretch(1)
+
+		self.hoelayout.addWidget(self.exitBtn)
+		self.hoelayout.addStretch(1)
+
 		self.setLayout(self.hoelayout)
 
 class RoundEdgeButton(QtGui.QPushButton):
 	""" docstring for RoundEdgeButton"""
 	def __init__(self, parent=None):
 		super(RoundEdgeButton, self).__init__(parent)
+
 		self.setIconSize(QtCore.QSize(32,32))
+
+		self.setIconSize(QtCore.QSize(22,22))
+
 		self.setStyleSheet("""
 		QPushButton{
 		opacity: 50;            

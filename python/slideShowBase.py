@@ -1,4 +1,8 @@
 import utils
+<<<<<<< HEAD
+=======
+from PyQt4 import QtGui
+>>>>>>> codeReview
 
 class SlideShowBase(object):
 	"""	SlideShowBase class contains methods that defines the 
@@ -48,9 +52,17 @@ class SlideShowBase(object):
 		"""
 		if not self._pause:
 			self._pause = True
+<<<<<<< HEAD
+=======
+			self.bar.pausBtn.setIcon(self.style().standardIcon(QtGui.QStyle.SP_MediaStop))
+>>>>>>> codeReview
 			self.updateTimer.start(2500)
 			return self._pause
 		else:
 			self._pause = False
 			self.updateTimer.stop()
+<<<<<<< HEAD
+=======
+			self.bar.pausBtn.setIcon(self.style().standardIcon(QtGui.QStyle.SP_MediaPlay))
+>>>>>>> codeReview
 

@@ -4,18 +4,54 @@
 		"selected_items":
 		[
 			[
+<<<<<<< HEAD
 				"msg",
 				"msgRetVal"
 			],
 			[
 				"galle",
 				"galleryWin"
+=======
+				"ani",
+				"animateUpOpen"
+			],
+			[
+				"close",
+				"closeEvent"
+>>>>>>> codeReview
 			],
 			[
 				"gal",
 				"galleryWin"
 			],
 			[
+<<<<<<< HEAD
+=======
+				"co",
+				"connect"
+			],
+			[
+				"gall",
+				"galleryVisible"
+			],
+			[
+				"ima",
+				"images"
+			],
+			[
+				"op",
+				"openBtn"
+			],
+			[
+				"exit",
+				"exitBtn"
+			],
+			[
+				"pa",
+				"parent"
+			],
+			[
+>>>>>>> codeReview
 				"e",
 				"exec_"
 			],
@@ -312,10 +348,13 @@
 				"keyevent"
 			],
 			[
+<<<<<<< HEAD
 				"pa",
 				"pause"
 			],
 			[
+=======
+>>>>>>> codeReview
 				"S",
 				"SIGIOHandler"
 			],
@@ -400,10 +439,13 @@
 				"event"
 			],
 			[
+<<<<<<< HEAD
 				"co",
 				"completer"
 			],
 			[
+=======
+>>>>>>> codeReview
 				"Fil",
 				"Filter"
 			],
@@ -498,6 +540,7 @@
 			[
 				"Key",
 				"Key_Enter-1"
+<<<<<<< HEAD
 			],
 			[
 				"_p",
@@ -514,6 +557,8 @@
 			[
 				"Filter",
 				"filterMethods"
+=======
+>>>>>>> codeReview
 			]
 		]
 	},
@@ -523,31 +568,56 @@
 			"file": "python/controlBar.py",
 			"settings":
 			{
+<<<<<<< HEAD
 				"buffer_size": 2830,
+=======
+				"buffer_size": 2988,
+>>>>>>> codeReview
 				"line_ending": "Unix"
 			}
 		},
 		{
+<<<<<<< HEAD
 			"file": "python/slideShow.py",
 			"settings":
 			{
 				"buffer_size": 10633,
+=======
+			"file": "python/gallery.py",
+			"settings":
+			{
+				"buffer_size": 8574,
+>>>>>>> codeReview
 				"line_ending": "Unix"
 			}
 		},
 		{
+<<<<<<< HEAD
 			"file": "python/utils.py",
 			"settings":
 			{
 				"buffer_size": 2281,
+=======
+			"file": "python/slideShow.py",
+			"settings":
+			{
+				"buffer_size": 11298,
+>>>>>>> codeReview
 				"line_ending": "Unix"
 			}
 		},
 		{
+<<<<<<< HEAD
 			"file": "python/gallery.py",
 			"settings":
 			{
 				"buffer_size": 6906,
+=======
+			"file": "python/slideShowBase.py",
+			"settings":
+			{
+				"buffer_size": 1434,
+>>>>>>> codeReview
 				"line_ending": "Unix"
 			}
 		}
@@ -555,7 +625,11 @@
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
+<<<<<<< HEAD
 		"height": 280.0,
+=======
+		"height": 392.0,
+>>>>>>> codeReview
 		"selected_items":
 		[
 			[
@@ -563,10 +637,13 @@
 				"Git: Status"
 			],
 			[
+<<<<<<< HEAD
 				"ins",
 				"Package Control: Install Package"
 			],
 			[
+=======
+>>>>>>> codeReview
 				"Git",
 				"Git: Commit…"
 			],
@@ -575,6 +652,13 @@
 				"Git: Status"
 			],
 			[
+<<<<<<< HEAD
+=======
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+>>>>>>> codeReview
 				"Ins",
 				"Package Control: Install Package"
 			],
@@ -634,12 +718,17 @@
 	},
 	"file_history":
 	[
+<<<<<<< HEAD
 		"/Users/sanjeevkumar/Development/python/slideShow/README.md",
 		"/Users/sanjeevkumar/Development/python/slideShow/python/utils.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/python/icons.py",
 		"/Users/sanjeevkumar/Development/custom/animateWindow.py",
 		"/Users/sanjeevkumar/Development/custom/slide_animation.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/.gitignore",
+=======
+		"/Users/sanjeevkumar/Development/python/slideShow/scripts/gallery",
+		"/Users/sanjeevkumar/Development/python/custom/togglePushButton.py",
+>>>>>>> codeReview
 		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
 		"/Users/sanjeevkumar/Library/Application Support/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
 		"/Users/sanjeevkumar/Development/python/slideShow/.git/rebase-merge/git-rebase-todo",
@@ -662,6 +751,10 @@
 		"/Users/sanjeevkumar/Development/python/slideShow/python/threading.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/python/gallery.py",
 		"/Users/sanjeevkumar/Development/custom/overlay1.py",
+<<<<<<< HEAD
+=======
+		"/Users/sanjeevkumar/Development/python/slideShow/python/utils.py",
+>>>>>>> codeReview
 		"/Users/sanjeevkumar/Development/custom/exifData.py",
 		"/Users/sanjeevkumar/Development/python/exif-py/EXIF.py",
 		"/Users/sanjeevkumar/Development/custom/animateFullScreen.py",
@@ -670,8 +763,15 @@
 		"/Users/sanjeevkumar/Development/custom/tableWidgetHover.py",
 		"/Users/sanjeevkumar/Development/custom/tableWidgetExample.py",
 		"/Users/sanjeevkumar/Development/custom/conlst2d.py",
+<<<<<<< HEAD
 		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/TermFrame.py",
 		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/SerialTerminal.py",
+=======
+		"/Users/sanjeevkumar/Development/custom/animateWindow.py",
+		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/TermFrame.py",
+		"/Users/sanjeevkumar/Downloads/Serial-Terminal-master/SerialTerminal.py",
+		"/Users/sanjeevkumar/Development/custom/slide_animation.py",
+>>>>>>> codeReview
 		"/Users/sanjeevkumar/Development/python/custom/itertool_product.py",
 		"/Users/sanjeevkumar/Development/python/slideShow/tests/test_slideshow.py",
 		"/Users/sanjeevkumar/Development/python/Qdock.py",
@@ -774,6 +874,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+<<<<<<< HEAD
 			"populateImagestoSlideShow",
 			"__imgLst",
 			"_slideShowWin",
@@ -783,6 +884,33 @@
 			"Select",
 			"prepairWindow",
 			"closeMe",
+=======
+			"QPoint",
+			"createActions",
+			"slideShow",
+			"closeEvent",
+			"animateUpOpen",
+			"_exitGallery",
+			"window",
+			"_brows",
+			"_slideShowWin",
+			"galleryVisible",
+			"galrBtn",
+			"galleryVisible",
+			"_openSlideShow",
+			"animateUpSlideShow",
+			"_openSlideShow",
+			"dir",
+			"print",
+			"_openGallery",
+			"galleryVisible",
+			"_openGallery",
+			"__changeSlideShow",
+			"}\n",
+			"playPause",
+			"setIcon",
+			"arg",
+>>>>>>> codeReview
 			"pick",
 			"paintEvent",
 			"ToolTipText",
@@ -885,6 +1013,7 @@
 			"imgPathLst",
 			"__assignImageList",
 			"ingestData",
+<<<<<<< HEAD
 			"_browseDir",
 			"print",
 			"sys.exit",
@@ -902,6 +1031,9 @@
 			"generatePixmap",
 			"event",
 			"pixmap"
+=======
+			"_browseDir"
+>>>>>>> codeReview
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -940,15 +1072,24 @@
 					"semi_transient": false,
 					"settings":
 					{
+<<<<<<< HEAD
 						"buffer_size": 2830,
+=======
+						"buffer_size": 2988,
+>>>>>>> codeReview
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								840,
 								840
+=======
+								1933,
+								1933
+>>>>>>> codeReview
 							]
 						],
 						"settings":
@@ -957,26 +1098,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 0.0,
+=======
+						"translation.y": 696.0,
+>>>>>>> codeReview
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+<<<<<<< HEAD
 					"file": "python/slideShow.py",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 10633,
+=======
+					"file": "python/gallery.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8574,
+>>>>>>> codeReview
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								3829,
 								3829
+=======
+								4652,
+								4652
+>>>>>>> codeReview
 							]
 						],
 						"settings":
@@ -984,27 +1142,45 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
+<<<<<<< HEAD
 						"translation.x": 0.0,
 						"translation.y": 4789.0,
+=======
+						"translation.x": 260.0,
+						"translation.y": 2707.0,
+>>>>>>> codeReview
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+<<<<<<< HEAD
 					"file": "python/utils.py",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 2281,
+=======
+					"file": "python/slideShow.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11298,
+>>>>>>> codeReview
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								1847,
 								1847
+=======
+								6170,
+								6179
+>>>>>>> codeReview
 							]
 						],
 						"settings":
@@ -1013,26 +1189,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 1075.0,
+=======
+						"translation.y": 3365.0,
+>>>>>>> codeReview
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+<<<<<<< HEAD
 					"file": "python/gallery.py",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 6906,
+=======
+					"file": "python/slideShowBase.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1434,
+>>>>>>> codeReview
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
+<<<<<<< HEAD
 								4562,
 								4466
+=======
+								392,
+								392
+>>>>>>> codeReview
 							]
 						],
 						"settings":
@@ -1041,7 +1234,11 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
+<<<<<<< HEAD
 						"translation.y": 2457.0,
+=======
+						"translation.y": 0.0,
+>>>>>>> codeReview
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1082,7 +1279,11 @@
 	"menu_visible": true,
 	"output.exec":
 	{
+<<<<<<< HEAD
 		"height": 319.0
+=======
+		"height": 295.0
+>>>>>>> codeReview
 	},
 	"project": "slideShow.sublime-project",
 	"replace":
@@ -1121,7 +1322,11 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
+<<<<<<< HEAD
 	"side_bar_width": 194.0,
+=======
+	"side_bar_width": 146.0,
+>>>>>>> codeReview
 	"status_bar_visible": true,
 	"template_settings":
 	{
