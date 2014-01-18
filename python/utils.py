@@ -77,6 +77,14 @@ def _browseDir(label):
 			# user cancelled it!
 			sys.exit()
 
+def deleteFile(path):
+	if os.path.exists(path):
+            os.system('osascript -e \'tell app "Finder" '
+                      + 'to move the POSIX file "'
+                      + os.path.abspath(path) + '" to trash\'')
+        else:
+            print "Error:", os.path.abspath(path), "does not exist"
+
 def ingestData(paths):
 	"""	This method is used to create a list containing
 		images path to slideshow.

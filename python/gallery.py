@@ -5,7 +5,7 @@ from PyQt4 import QtGui, QtCore
 import icons
 import controlBar
 
-class MyListModel(QtCore.QAbstractTableModel):
+class MyDataModel(QtCore.QAbstractTableModel):
 	def __init__(self, datain, col, thumbRes, parent=None):
 		"""	Methods in this class sets up data/images to be
 			visible in the table.
@@ -131,15 +131,39 @@ class GalleryUi(QtGui.QTableView):
 		self._thumb_width = 200
 		self._thumb_height = self._thumb_width + 20
 		self.setUpWindow(initiate=True)
-
 		self._startControlBar()
 
 		self._connections()
 
-	def closeEvent(self,event):
+	def contextMenuEvent(self, pos):
+		if self.selectionModel().selection().indexes():
+			for i in self.selectionModel().selection().indexes():
+				row, column = i.row(), i.column()
+			menu = QtGui.QMenu()
+			if self._slideShowWin:
+				openAction = menu.addAction("Open")
+			renaAction = menu.addAction("Rename")
+			# TODO: implemented only for osx
+			if sys.platform == 'darwin':
+				deleAction = menu.addAction("Delete")
+			action = menu.exec_(self.mapToGlobal(pos))
+			if action == openAction:
+				self.openAction(row, column)
+			if action == renaAction:
+				self.edit(self.selectionModel().currentIndex())
+			if action == deleAction:
+				utils.deleteFile(self._twoDLst[row][column][0])
+				self.updateModel()
+
+	def closeEvent(self, event):
 		# in case gallery is launched by Slideshow this is not needed
 		if hasattr(self, 'bar'):
 			self.bar.close()
+
+	def openAction(self, row, column):
+		if self._slideShowWin:
+			self._slideShowWin.showImageByPath(self._twoDLst[row][column])
+			self._animateUpOpen()
 
 	def _startControlBar(self):
 		if not self._slideShowWin:
@@ -147,6 +171,7 @@ class GalleryUi(QtGui.QTableView):
 			self.bar.show()
 			self.bar.galrBtn.hide()
 			self.bar.pausBtn.hide()
+			self.bar.imgSizeSldr.show()
 			self.bar.backBtn.hide()
 			self.bar.nextBtn.hide()
 			self.bar.exitBtn.clicked.connect(self._exitGallery)
@@ -161,9 +186,10 @@ class GalleryUi(QtGui.QTableView):
 		self.close()
 
 	def _connections(self):
-		# TODO: http://stackoverflow.com/questions/7782071/how-can-i-get-right-click-context-menus-for-clicks-in-qtableview-header
-		# self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-		# self.connect(self, QtCore.SIGNAL(self.customContextMenuRequested(QtCore.QPoint)), self, QtCore.SLOT(displayMenu(QtCore.QPoint)))
+		"""	all Signal to Slot connections
+		"""
+		self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+		self.customContextMenuRequested.connect(self.contextMenuEvent)
 		if self._slideShowWin:
 			self._slideShowWin.bar.galrBtn.clicked[bool].connect(self._openSlideShow)
 
@@ -196,9 +222,9 @@ class GalleryUi(QtGui.QTableView):
 		if self._slideShowWin:
 			self.setWindowFlags(
 					QtCore.Qt.Widget |
-				 	QtCore.Qt.FramelessWindowHint | 
-				 	QtCore.Qt.X11BypassWindowManagerHint
-				 				)
+					QtCore.Qt.FramelessWindowHint | 
+					QtCore.Qt.X11BypassWindowManagerHint
+								)
 			self.showFullScreen()
 		else:
 			self.show()
@@ -210,7 +236,7 @@ class GalleryUi(QtGui.QTableView):
 	def updateModel(self):
 		col = self.__sw/self._thumb_width 
 		self._twoDLst = utils.convertToTwoDList(self._imagesPathLst, col)
-		lm = MyListModel(self._twoDLst, col,
+		lm = MyDataModel(self._twoDLst, col,
 			(self._thumb_width, self._thumb_height), self)
 		self.setModel(lm)
 
