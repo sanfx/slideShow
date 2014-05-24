@@ -5,7 +5,7 @@ from PyQt4 import QtGui, QtCore
 import icons
 import controlBar
 
-class MyListModel(QtCore.QAbstractTableModel):
+class DataModel(QtCore.QAbstractTableModel):
 	def __init__(self, datain, col, thumbRes, parent=None):
 		"""	Methods in this class sets up data/images to be
 			visible in the table.
@@ -83,8 +83,11 @@ class MyListModel(QtCore.QAbstractTableModel):
 			column = index.column()
 			try:
 				imageVal = self._listdata[row][column][0]
-			except IndexError:
+			# except IndexError:
+			# 	return
+			except TypeError:
 				return
+
 			pixmap = QtGui.QPixmapCache.find(imageVal)
 			if not pixmap:
 				pixmap = QtGui.QPixmap(imageVal).scaled(self._thumbRes[0], self._thumbRes[1], 
@@ -210,7 +213,7 @@ class GalleryUi(QtGui.QTableView):
 	def updateModel(self):
 		col = self.__sw/self._thumb_width 
 		self._twoDLst = utils.convertToTwoDList(self._imagesPathLst, col)
-		lm = MyListModel(self._twoDLst, col,
+		lm = DataModel(self._twoDLst, col,
 			(self._thumb_width, self._thumb_height), self)
 		self.setModel(lm)
 

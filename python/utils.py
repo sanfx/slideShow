@@ -2,15 +2,18 @@ import os
 import sys
 import exifread
 from PyQt4 import QtGui, QtCore
-print QtGui.__file__
+from itertools import izip_longest
+
+
 class InvalidArgmentException(Exception):
 	pass
 
 
 ALLOWABLE = frozenset(str(f) for f in QtGui.QImageReader.supportedImageFormats())
 
-def isExtensionSupported(filename):
+def _isExtensionSupported(filename):
 	"""	Supported extensions viewable in SlideShow
+
 		Args:
 			filename(str): file path with extensions
 	"""
@@ -25,7 +28,7 @@ def imageFilePaths(paths):
 			dirContent = os.listdir(_path)
 			for each in dirContent:
 				selFile = os.path.join(_path, each)
-				if os.path.exists(selFile) and isExtensionSupported(selFile):
+				if os.path.exists(selFile) and _isExtensionSupported(selFile):
 					tempList = getExifData(selFile)
 					tempList.insert(0, selFile)
 					imagesWithPath.append(tempList)
@@ -44,11 +47,17 @@ def getExifData(filePath):
 	except OSError:
 		return
 	
-def convertToTwoDList(l, n):
+def convertToTwoDList(iterable, n, fillvalue=None):
 	"""	Method to convert a list to two
 		dimensional list for QTableView
-	"""
-	return [l[i:i+n] for i in range(0, len(l), n)]
+
+		Args:
+			iterable(list): list of lists containing image paths
+			n(int): number of columns
+			fillvalue(list): a single list item containing the image path
+	"""	
+	return list(izip_longest(*[iter(iterable)]*n, fillvalue=fillvalue))
+
 
 def _renameFile(fileToRename, newName):
 	"""	method to rename a image name when double click
