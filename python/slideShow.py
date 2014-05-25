@@ -61,7 +61,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		self._sw = QtGui.QDesktopWidget().screenGeometry(self).width()
 		self._sh = QtGui.QDesktopWidget().screenGeometry(self).height()
 
-		self.prepairWindow()
+		self._prepairWindow()
 		# hides the exif data of image by default
 		self.overlayExifText.hide()
 
@@ -106,14 +106,18 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 		"""	this methdd is used to select a different folder to view
 			slideshow, and updates the list which also updates gallery images
 		"""
+		# pause the slide show 
+		self.playPause()
 		curntPaths = utils._browseDir("Select Directory to SlideShow")
-		self.populateImagestoSlideShow(curntPaths)
-		# always set to go forward when new path is set
-		self._forwardPlay()
-		if hasattr(self, 'galleryWin'):
-			self.galleryWin.close()
-		# updating the imgLst will update the gallery as well.
-		self.__imgLst = utils.ingestData([curntPaths])
+		if curntPaths:
+			self.populateImagestoSlideShow(curntPaths)
+			self.playPause()
+			# always set to go forward when new path is set
+			self._forwardPlay()
+			if hasattr(self, 'galleryWin'):
+				self.galleryWin.close()
+			# updating the imgLst will update the gallery as well.
+			self.__imgLst = utils.ingestData([curntPaths])
 
 	def closeEvent(self, event):
 		self.bar.close()
@@ -122,7 +126,7 @@ class SlideShowPics(QtGui.QMainWindow, slideShowBase.SlideShowBase):
 			self.galleryWin.close()
 
 
-	def prepairWindow(self):
+	def _prepairWindow(self):
 		if not self._imagesInList:
 			msgBox = QtGui.QMessageBox()
 			msgBox.setText("No Image found." )

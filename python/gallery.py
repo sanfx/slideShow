@@ -1,7 +1,9 @@
 import sys
 import os
 import utils
+import gc
 from PyQt4 import QtGui, QtCore
+from threading import Thread
 import icons
 import controlBar
 
@@ -121,8 +123,7 @@ class DataModel(QtCore.QAbstractTableModel):
 		return False
 
 class GalleryUi(QtGui.QTableView):
-	"""	Class contains the methods that forms the
-		UI of Image galery
+	"""	methods that forms the UI of Image galery
 	"""
 	def __init__(self, window, imagesPathLst=None, parent=None):
 		super(GalleryUi, self).__init__(parent)
@@ -133,11 +134,11 @@ class GalleryUi(QtGui.QTableView):
 		self._imagesPathLst = imagesPathLst
 		self._thumb_width = 200
 		self._thumb_height = self._thumb_width + 20
-		self.setUpWindow(initiate=True)
+		uiSetupComplete = self._setUpWindow(initiate=True)
 
-		self._startControlBar()
-
-		self._connections()
+		if uiSetupComplete:
+			self._startControlBar()
+			self._connections()
 
 	def closeEvent(self,event):
 		# in case gallery is launched by Slideshow this is not needed
@@ -176,13 +177,13 @@ class GalleryUi(QtGui.QTableView):
 		self.menu.exec_(self.mapToGlobal(event.pos()))
 
 	def selectSetNewPath(self):
-			
+
 		path = utils._browseDir("Select the directory that contains images")
 		self._imagesPathLst = utils.ingestData(path)
 		# sets model when new folder is choosen
 		self.updateModel()
 
-	def setUpWindow(self, initiate=False):
+	def _setUpWindow(self, initiate=False):
 		"""	Method to setup window frameless and fullscreen,
 			setting up thumbnaul size and animation rate
 		"""
@@ -209,6 +210,7 @@ class GalleryUi(QtGui.QTableView):
 		self.resizeColumnsToContents()
 		self.resizeRowsToContents()
 		self.selectionModel().selectionChanged.connect(self.selChanged)
+		return True
 
 	def updateModel(self):
 		col = self.__sw/self._thumb_width 
@@ -291,3 +293,4 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		current_path = sys.argv[1:]
 	main(utils.ingestData(current_path))
+
