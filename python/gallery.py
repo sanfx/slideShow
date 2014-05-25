@@ -1,9 +1,9 @@
-import sys
 import os
+import sys
+import time
 import utils
 import gc
 from PyQt4 import QtGui, QtCore
-from threading import Thread
 import icons
 import controlBar
 
@@ -200,9 +200,9 @@ class GalleryUi(QtGui.QTableView):
 		if self._slideShowWin:
 			self.setWindowFlags(
 					QtCore.Qt.Widget |
-				 	QtCore.Qt.FramelessWindowHint | 
-				 	QtCore.Qt.X11BypassWindowManagerHint
-				 				)
+					QtCore.Qt.FramelessWindowHint | 
+					QtCore.Qt.X11BypassWindowManagerHint
+								)
 			self.showFullScreen()
 		else:
 			self.show()
@@ -272,13 +272,31 @@ class GalleryUi(QtGui.QTableView):
 			helps in separating toggle button call from keyboard
 			key press calls
 		"""
-		self.animateUpSlideShow()
+		self.workThread = WorkThread()
+		self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.animateUpSlideShow)
+ 		self.workThread.start()
+		# self.animateUpSlideShow()
 
 	def _openSlideShow(self, pressed):
 		"""	use gallery/slideshow toggle button
 		"""
 		if not pressed:
 			self._animateUpOpen()
+
+class WorkThread(QtCore.QThread):
+	def __init__(self):
+		QtCore.QThread.__init__(self)
+
+	def __del__(self):
+		self.wait()
+
+	def run(self):
+		for i in range(1):
+			time.sleep(0.3) # artificial time delay
+			self.emit( QtCore.SIGNAL('update(QString)'), "from work thread " + str(i) )
+			self.terminate()
+		return
+
 		
 def main(imgLst=None):
 	"""	method to start gallery standalone
